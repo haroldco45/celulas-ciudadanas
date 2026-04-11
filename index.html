@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Células Ciudadanas — Vibras Positivas HM</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --p:    #4A3FD4;
+  --p2:   #6C5FE8;
+  --p3:   #EEF0FF;
+  --t:    #0C8A60;
+  --t2:   #D6F5E8;
+  --c:    #C93B1C;
+  --c2:   #FDEEE9;
+  --a:    #B8680A;
+  --a2:   #FEF3E2;
+  --dark: #0E0E1A;
+  --dark2:#181828;
+  --dark3:#22223A;
+  --mid:  #3A3A5C;
+  --muted:#7C7CA0;
+  --line: rgba(255,255,255,.08);
+  --white:#FFFFFF;
+  --fs:   'Syne', sans-serif;
+  --fb:   'DM Sans', sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--dark);color:var(--white);font-family:var(--fb);min-height:100vh;overflow-x:hidden}
+
+/* ── LAYOUT ── */
+.app{display:flex;min-height:100vh}
+.sidebar{width:220px;background:var(--dark2);border-right:1px solid var(--line);display:flex;flex-direction:column;flex-shrink:0;position:sticky;top:0;height:100vh;overflow-y:auto}
+.main{flex:1;overflow-y:auto;min-width:0}
+
+/* ── SIDEBAR ── */
+.brand{padding:24px 20px 16px;border-bottom:1px solid var(--line)}
+.brand-name{font-family:var(--fs);font-size:13px;font-weight:800;color:var(--white);letter-spacing:.06em;text-transform:uppercase}
+.brand-sub{font-size:10px;color:var(--muted);margin-top:2px;letter-spacing:.04em}
+.nav{padding:12px 10px;flex:1}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:10px;cursor:pointer;font-size:13px;color:var(--muted);font-family:var(--fb);font-weight:400;transition:all .18s;margin-bottom:2px;border:none;background:none;width:100%;text-align:left}
+.nav-item:hover{background:var(--line);color:var(--white)}
+.nav-item.active{background:var(--p);color:var(--white);font-weight:500}
+.nav-icon{width:18px;height:18px;flex-shrink:0;opacity:.7}
+.nav-item.active .nav-icon{opacity:1}
+.nav-sep{height:1px;background:var(--line);margin:8px 10px}
+.sidebar-footer{padding:16px 20px;border-top:1px solid var(--line);font-size:10px;color:var(--muted);line-height:1.5}
+
+/* ── HEADER ── */
+.page-header{padding:28px 32px 20px;border-bottom:1px solid var(--line)}
+.page-title{font-family:var(--fs);font-size:22px;font-weight:800;color:var(--white)}
+.page-sub{font-size:13px;color:var(--muted);margin-top:4px}
+.header-row{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+/* ── CONTENT ── */
+.content{padding:24px 32px;display:none}
+.content.active{display:block}
+
+/* ── CARDS ── */
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
+.kpi-card{background:var(--dark2);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+.kpi-n{font-family:var(--fs);font-size:28px;font-weight:800;color:var(--white);line-height:1}
+.kpi-l{font-size:11px;color:var(--muted);margin-top:6px;letter-spacing:.03em}
+.kpi-delta{font-size:11px;margin-top:4px;font-weight:500}
+.delta-up{color:#4ADE80}
+.delta-neutral{color:var(--muted)}
+.card{background:var(--dark2);border:1px solid var(--line);border-radius:16px;padding:20px 22px;margin-bottom:16px}
+.card-title{font-family:var(--fs);font-size:14px;font-weight:700;color:var(--white);margin-bottom:14px}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+
+/* ── TABLA DE CÉLULAS ── */
+.celulas-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:24px}
+.celula-card{background:var(--dark2);border:1px solid var(--line);border-radius:16px;padding:18px 20px;cursor:pointer;transition:all .2s}
+.celula-card:hover{border-color:var(--p2);transform:translateY(-2px)}
+.celula-card.selected{border-color:var(--p);background:rgba(74,63,212,.12)}
+.cel-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.cel-name{font-family:var(--fs);font-size:15px;font-weight:700;color:var(--white)}
+.cel-badge{font-size:10px;font-weight:600;padding:3px 9px;border-radius:20px;letter-spacing:.04em}
+.badge-activa{background:rgba(12,138,96,.2);color:#4ADE80;border:1px solid rgba(12,138,96,.3)}
+.badge-nueva{background:rgba(74,63,212,.2);color:#A5B4FC;border:1px solid rgba(74,63,212,.3)}
+.badge-riesgo{background:rgba(201,59,28,.2);color:#FCA5A5;border:1px solid rgba(201,59,28,.3)}
+.cel-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.cel-stat{text-align:center}
+.cel-stat-n{font-family:var(--fs);font-size:16px;font-weight:700;color:var(--white)}
+.cel-stat-l{font-size:10px;color:var(--muted);margin-top:1px}
+.cel-bar{height:3px;background:var(--dark3);border-radius:2px;margin-top:10px;overflow:hidden}
+.cel-bar-fill{height:100%;border-radius:2px;background:var(--p2);transition:width .6s}
+
+/* ── FORMULARIO / MODALES ── */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:100;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.open{display:flex}
+.modal{background:var(--dark2);border:1px solid var(--line);border-radius:20px;padding:28px;width:100%;max-width:480px;max-height:90vh;overflow-y:auto}
+.modal-title{font-family:var(--fs);font-size:18px;font-weight:800;color:var(--white);margin-bottom:20px}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:12px;color:var(--muted);margin-bottom:5px;letter-spacing:.03em}
+.field input,.field select,.field textarea{width:100%;background:var(--dark3);border:1px solid var(--line);border-radius:10px;padding:10px 14px;color:var(--white);font-family:var(--fb);font-size:14px;outline:none;transition:border-color .2s}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--p2)}
+.field select option{background:var(--dark2)}
+.field textarea{resize:vertical;min-height:80px}
+.modal-btns{display:flex;gap:8px;margin-top:20px}
+
+/* ── BOTONES ── */
+.btn{padding:9px 18px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;border:none;font-family:var(--fb);transition:all .18s;letter-spacing:.02em}
+.btn-primary{background:var(--p);color:var(--white)}
+.btn-primary:hover{background:var(--p2)}
+.btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--line)}
+.btn-ghost:hover{color:var(--white);border-color:rgba(255,255,255,.2)}
+.btn-danger{background:rgba(201,59,28,.15);color:#FCA5A5;border:1px solid rgba(201,59,28,.2)}
+.btn-danger:hover{background:rgba(201,59,28,.25)}
+.btn-sm{padding:6px 14px;font-size:12px;border-radius:8px}
+.btn-teal{background:rgba(12,138,96,.15);color:#4ADE80;border:1px solid rgba(12,138,96,.2)}
+
+/* ── LISTA DE MIEMBROS ── */
+.member-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
+.member-row:last-child{border-bottom:none}
+.avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--fs);font-size:13px;font-weight:700;flex-shrink:0}
+.member-info{flex:1}
+.member-name{font-size:13px;font-weight:500;color:var(--white)}
+.member-meta{font-size:11px;color:var(--muted);margin-top:1px}
+.role-pill{font-size:10px;font-weight:600;padding:2px 8px;border-radius:12px}
+.role-lider{background:rgba(74,63,212,.25);color:#A5B4FC}
+.role-vocero{background:rgba(12,138,96,.2);color:#6EE7B7}
+.role-secretario{background:rgba(184,104,10,.2);color:#FCD34D}
+.role-veedor{background:rgba(201,59,28,.2);color:#FCA5A5}
+.role-miembro{background:var(--dark3);color:var(--muted)}
+
+/* ── ACTIVIDAD / TIMELINE ── */
+.activity-item{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
+.activity-item:last-child{border-bottom:none}
+.act-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.act-text{font-size:13px;color:var(--white);line-height:1.45}
+.act-time{font-size:11px;color:var(--muted);margin-top:2px}
+
+/* ── PROGRESO ── */
+.progress-row{margin-bottom:12px}
+.progress-label{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:5px}
+.progress-bar{height:6px;background:var(--dark3);border-radius:3px;overflow:hidden}
+.progress-fill{height:100%;border-radius:3px;transition:width .8s ease}
+
+/* ── TABS ── */
+.tabs{display:flex;gap:4px;margin-bottom:20px;background:var(--dark3);padding:4px;border-radius:12px;width:fit-content}
+.tab-btn{padding:7px 16px;border-radius:9px;font-size:12px;font-weight:600;cursor:pointer;border:none;background:none;color:var(--muted);font-family:var(--fb);transition:all .18s}
+.tab-btn.active{background:var(--dark2);color:var(--white)}
+
+/* ── MENSAJES WHATSAPP ── */
+.wamsg{background:var(--dark3);border-left:3px solid var(--p2);border-radius:0 10px 10px 0;padding:10px 14px;margin:8px 0;font-size:13px;color:rgba(255,255,255,.85);line-height:1.55;font-style:italic}
+.copy-btn{font-size:11px;color:var(--p2);cursor:pointer;margin-top:4px;display:inline-block;background:none;border:none;font-family:var(--fb);padding:0}
+.copy-btn:hover{color:var(--white)}
+
+/* ── SEMAFORO ── */
+.semaforo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.sem-card{border-radius:12px;padding:14px;text-align:center}
+.sem-n{font-family:var(--fs);font-size:24px;font-weight:800}
+.sem-l{font-size:11px;margin-top:3px;opacity:.8}
+.sem-verde{background:rgba(74,222,128,.1);border:1px solid rgba(74,222,128,.2)}
+.sem-verde .sem-n{color:#4ADE80}
+.sem-verde .sem-l{color:#4ADE80}
+.sem-amarillo{background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.2)}
+.sem-amarillo .sem-n{color:#FBB024}
+.sem-amarillo .sem-l{color:#FBB024}
+.sem-rojo{background:rgba(248,113,113,.1);border:1px solid rgba(248,113,113,.2)}
+.sem-rojo .sem-n{color:#F87171}
+.sem-rojo .sem-l{color:#F87171}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--p);color:var(--white);padding:12px 20px;border-radius:12px;font-size:13px;font-weight:500;z-index:200;opacity:0;transform:translateY(10px);transition:all .3s;pointer-events:none}
+.toast.show{opacity:1;transform:translateY(0)}
+
+/* ── ANIMACIONES ── */
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.content.active{animation:fadeIn .25s ease}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.live-dot{width:8px;height:8px;border-radius:50%;background:#4ADE80;display:inline-block;margin-right:5px;animation:pulse 2s infinite}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .sidebar{display:none}
+  .kpi-grid{grid-template-columns:repeat(2,1fr)}
+  .celulas-grid{grid-template-columns:1fr}
+  .two-col{grid-template-columns:1fr}
+  .content{padding:16px}
+  .page-header{padding:20px 16px 14px}
+}
+</style>
+</head>
+<body>
+
+<div class="app">
+<!-- ── SIDEBAR ── -->
+<aside class="sidebar">
+  <div class="brand">
+    <div class="brand-name">Vibras Positivas</div>
+    <div class="brand-sub">HM — Células Ciudadanas</div>
+  </div>
+  <nav class="nav">
+    <button class="nav-item active" onclick="goTo('dashboard',this)">
+      <svg class="nav-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M3 4a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm8 0a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1V4zM3 12a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H4a1 1 0 01-1-1v-4zm8 0a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z"/></svg>
+      Dashboard
+    </button>
+    <button class="nav-item" onclick="goTo('celulas',this)">
+      <svg class="nav-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v1h8v-1zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-1a4 4 0 00-1.447-3.057A4.977 4.977 0 0118 18v1h-2zM4 18v-1a4.978 4.978 0 011.447-4.057A4 4 0 004 18v1H2v-1z"/></svg>
+      Células
+    </button>
+    <button class="nav-item" onclick="goTo('miembros',this)">
+      <svg class="nav-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/></svg>
+      Miembros
+    </button>
+    <button class="nav-item" onclick="goTo('tareas',this)">
+      <svg class="nav-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+      Tareas
+    </button>
+    <button class="nav-item" onclick="goTo('reportes',this)">
+      <svg class="nav-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zm6-4a1 1 0 011-1h2a1 1 0 011 1v13a1 1 0 01-1 1h-2a1 1 0 01-1-1V3z"/></svg>
+      Reportes
+    </button>
+    <div class="nav-sep"></div>
+    <button class="nav-item" onclick="goTo('mensajes',this)">
+      <svg class="nav-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z" clip-rule="evenodd"/></svg>
+      Mensajes
+    </button>
+  </nav>
+  <div class="sidebar-footer">
+    <span class="live-dot"></span>Sistema activo<br>
+    Desarrollada por Vibras Positivas HM<br>Derechos de Autor Reservados
+  </div>
+</aside>
+
+<!-- ── MAIN ── -->
+<main class="main">
+
+<!-- ══ DASHBOARD ══ -->
+<div class="content active" id="page-dashboard">
+  <div class="page-header">
+    <div class="header-row">
+      <div>
+        <div class="page-title">Dashboard general</div>
+        <div class="page-sub">Semana en curso — resumen de toda la red de células</div>
+      </div>
+      <button class="btn btn-primary btn-sm" onclick="openModal('modal-celula')">+ Nueva célula</button>
+    </div>
+  </div>
+  <div class="content active" style="padding:24px 32px">
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-n" id="kpi-celulas">6</div>
+        <div class="kpi-l">Células activas</div>
+        <div class="kpi-delta delta-up">↑ meta: 10</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-n" id="kpi-miembros">54</div>
+        <div class="kpi-l">Miembros totales</div>
+        <div class="kpi-delta delta-up">↑ +12 esta semana</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-n" id="kpi-hogares">138</div>
+        <div class="kpi-l">Hogares contactados</div>
+        <div class="kpi-delta delta-up">↑ esta semana</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-n" id="kpi-dias">23</div>
+        <div class="kpi-l">Días para elecciones</div>
+        <div class="kpi-delta delta-neutral">— cuenta regresiva</div>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="card">
+        <div class="card-title">Progreso hacia metas</div>
+        <div class="progress-row">
+          <div class="progress-label"><span>Miembros (meta 100)</span><span id="pm">54%</span></div>
+          <div class="progress-bar"><div class="progress-fill" id="pf1" style="width:54%;background:var(--p2)"></div></div>
+        </div>
+        <div class="progress-row">
+          <div class="progress-label"><span>Células (meta 10)</span><span>60%</span></div>
+          <div class="progress-bar"><div class="progress-fill" style="width:60%;background:var(--t)"></div></div>
+        </div>
+        <div class="progress-row">
+          <div class="progress-label"><span>Hogares semana (meta 200)</span><span>69%</span></div>
+          <div class="progress-bar"><div class="progress-fill" style="width:69%;background:var(--a)"></div></div>
+        </div>
+        <div class="progress-row">
+          <div class="progress-label"><span>Tareas completadas</span><span id="pt-pct">72%</span></div>
+          <div class="progress-bar"><div class="progress-fill" id="pf4" style="width:72%;background:#F87171"></div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Semáforo de células</div>
+        <div class="semaforo-grid">
+          <div class="sem-card sem-verde"><div class="sem-n" id="sem-v">4</div><div class="sem-l">En meta</div></div>
+          <div class="sem-card sem-amarillo"><div class="sem-n" id="sem-a">1</div><div class="sem-l">En riesgo</div></div>
+          <div class="sem-card sem-rojo"><div class="sem-n" id="sem-r">1</div><div class="sem-l">Inactiva</div></div>
+        </div>
+        <div style="margin-top:14px">
+          <div class="card-title" style="font-size:12px;margin-bottom:10px">Actividad reciente</div>
+          <div id="actividad-list"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Resumen por célula</div>
+      <div style="overflow-x:auto">
+        <table style="width:100%;border-collapse:collapse;font-size:13px">
+          <thead>
+            <tr style="border-bottom:1px solid var(--line)">
+              <th style="text-align:left;padding:8px 10px;color:var(--muted);font-weight:500;font-size:11px">Célula</th>
+              <th style="text-align:center;padding:8px 10px;color:var(--muted);font-weight:500;font-size:11px">Miembros</th>
+              <th style="text-align:center;padding:8px 10px;color:var(--muted);font-weight:500;font-size:11px">Hogares</th>
+              <th style="text-align:center;padding:8px 10px;color:var(--muted);font-weight:500;font-size:11px">Tareas</th>
+              <th style="text-align:center;padding:8px 10px;color:var(--muted);font-weight:500;font-size:11px">Estado</th>
+            </tr>
+          </thead>
+          <tbody id="tabla-resumen"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CÉLULAS ══ -->
+<div class="content" id="page-celulas">
+  <div class="page-header">
+    <div class="header-row">
+      <div>
+        <div class="page-title">Gestión de células</div>
+        <div class="page-sub">Administra cada célula, sus miembros y su avance</div>
+      </div>
+      <button class="btn btn-primary btn-sm" onclick="openModal('modal-celula')">+ Nueva célula</button>
+    </div>
+  </div>
+  <div style="padding:24px 32px">
+    <div class="celulas-grid" id="celulas-grid"></div>
+  </div>
+</div>
+
+<!-- ══ MIEMBROS ══ -->
+<div class="content" id="page-miembros">
+  <div class="page-header">
+    <div class="header-row">
+      <div>
+        <div class="page-title">Directorio de miembros</div>
+        <div class="page-sub">Todos los ciudadanos registrados en la red</div>
+      </div>
+      <button class="btn btn-primary btn-sm" onclick="openModal('modal-miembro')">+ Nuevo miembro</button>
+    </div>
+  </div>
+  <div style="padding:24px 32px">
+    <div class="card">
+      <div style="display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap">
+        <input type="text" id="search-miembro" placeholder="Buscar por nombre o barrio..." oninput="renderMiembros()" style="background:var(--dark3);border:1px solid var(--line);border-radius:10px;padding:9px 14px;color:var(--white);font-size:13px;outline:none;flex:1;min-width:200px;font-family:var(--fb)">
+        <select id="filter-celula" onchange="renderMiembros()" style="background:var(--dark3);border:1px solid var(--line);border-radius:10px;padding:9px 14px;color:var(--white);font-size:13px;outline:none;font-family:var(--fb)">
+          <option value="">Todas las células</option>
+        </select>
+        <select id="filter-rol" onchange="renderMiembros()" style="background:var(--dark3);border:1px solid var(--line);border-radius:10px;padding:9px 14px;color:var(--white);font-size:13px;outline:none;font-family:var(--fb)">
+          <option value="">Todos los roles</option>
+          <option>Líder</option><option>Vocero</option><option>Secretario</option><option>Veedor</option><option>Miembro</option>
+        </select>
+      </div>
+      <div id="miembros-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TAREAS ══ -->
+<div class="content" id="page-tareas">
+  <div class="page-header">
+    <div class="header-row">
+      <div>
+        <div class="page-title">Tareas semanales</div>
+        <div class="page-sub">Seguimiento de compromisos por célula</div>
+      </div>
+      <button class="btn btn-primary btn-sm" onclick="openModal('modal-tarea')">+ Nueva tarea</button>
+    </div>
+  </div>
+  <div style="padding:24px 32px">
+    <div class="tabs" id="tareas-tabs"></div>
+    <div id="tareas-content"></div>
+  </div>
+</div>
+
+<!-- ══ REPORTES ══ -->
+<div class="content" id="page-reportes">
+  <div class="page-header">
+    <div>
+      <div class="page-title">Reportes de avance</div>
+      <div class="page-sub">Reporte semanal automático por coordinador zonal</div>
+    </div>
+  </div>
+  <div style="padding:24px 32px">
+    <div id="reportes-content"></div>
+  </div>
+</div>
+
+<!-- ══ MENSAJES ══ -->
+<div class="content" id="page-mensajes">
+  <div class="page-header">
+    <div>
+      <div class="page-title">Mensajes para WhatsApp</div>
+      <div class="page-sub">Mensajes listos para copiar y enviar a tus grupos</div>
+    </div>
+  </div>
+  <div style="padding:24px 32px" id="mensajes-content"></div>
+</div>
+
+</main>
+</div>
+
+<!-- ══ MODALES ══ -->
+<div class="modal-overlay" id="modal-celula">
+  <div class="modal">
+    <div class="modal-title">Nueva célula ciudadana</div>
+    <div class="field"><label>Nombre del barrio / sector</label><input type="text" id="nc-nombre" placeholder="Ej: Barrio La Esperanza"></div>
+    <div class="field"><label>Zona o municipio</label><input type="text" id="nc-zona" placeholder="Ej: Centro, Caucasia"></div>
+    <div class="field"><label>Nombre del líder</label><input type="text" id="nc-lider" placeholder="Nombre completo"></div>
+    <div class="field"><label>Celular del líder</label><input type="text" id="nc-cel" placeholder="300 000 0000"></div>
+    <div class="modal-btns">
+      <button class="btn btn-primary" onclick="addCelula()">Crear célula</button>
+      <button class="btn btn-ghost" onclick="closeModal('modal-celula')">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-miembro">
+  <div class="modal">
+    <div class="modal-title">Nuevo miembro</div>
+    <div class="field"><label>Nombre completo</label><input type="text" id="nm-nombre" placeholder="Nombre y apellido"></div>
+    <div class="field"><label>Barrio</label><input type="text" id="nm-barrio" placeholder="Barrio donde vive"></div>
+    <div class="field"><label>Celular</label><input type="text" id="nm-cel" placeholder="300 000 0000"></div>
+    <div class="field"><label>Célula</label>
+      <select id="nm-celula"><option value="">Seleccionar célula...</option></select>
+    </div>
+    <div class="field"><label>Rol</label>
+      <select id="nm-rol">
+        <option>Miembro</option><option>Líder</option><option>Vocero</option><option>Secretario</option><option>Veedor</option>
+      </select>
+    </div>
+    <div class="modal-btns">
+      <button class="btn btn-primary" onclick="addMiembro()">Registrar</button>
+      <button class="btn btn-ghost" onclick="closeModal('modal-miembro')">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-tarea">
+  <div class="modal">
+    <div class="modal-title">Nueva tarea</div>
+    <div class="field"><label>Descripción de la tarea</label><input type="text" id="nt-desc" placeholder="Ej: Visitar 20 hogares del sector norte"></div>
+    <div class="field"><label>Célula asignada</label>
+      <select id="nt-celula"><option value="">Todas las células</option></select>
+    </div>
+    <div class="field"><label>Prioridad</label>
+      <select id="nt-prio"><option>Alta</option><option>Media</option><option>Baja</option></select>
+    </div>
+    <div class="modal-btns">
+      <button class="btn btn-primary" onclick="addTarea()">Agregar tarea</button>
+      <button class="btn btn-ghost" onclick="closeModal('modal-tarea')">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ═══════════════════════════ ESTADO ═══════════════════════════
+const state = {
+  celulas: [
+    {id:1,nombre:'Barrio El Centro',zona:'Caucasia',lider:'Pedro Ramírez',cel:'310 111 2233',miembros:11,hogares:28,estado:'activa'},
+    {id:2,nombre:'Barrio La Esperanza',zona:'Caucasia',lider:'María García',cel:'311 222 3344',miembros:9,hogares:22,estado:'activa'},
+    {id:3,nombre:'Barrio El Porvenir',zona:'Caucasia',lider:'Carlos López',cel:'312 333 4455',miembros:10,hogares:25,estado:'activa'},
+    {id:4,nombre:'Barrio San José',zona:'Caucasia',lider:'Ana Torres',cel:'313 444 5566',miembros:8,hogares:20,estado:'activa'},
+    {id:5,nombre:'Barrio La Gloria',zona:'Caucasia',lider:'Luis Martínez',cel:'314 555 6677',miembros:6,hogares:12,estado:'riesgo'},
+    {id:6,nombre:'Barrio Villa Nueva',zona:'Caucasia',lider:'Rosa Jiménez',cel:'315 666 7788',miembros:10,hogares:31,estado:'activa'},
+  ],
+  miembros: [
+    {id:1,nombre:'Pedro Ramírez',barrio:'El Centro',cel:'310 111 2233',celula:1,rol:'Líder'},
+    {id:2,nombre:'María García',barrio:'La Esperanza',cel:'311 222 3344',celula:2,rol:'Líder'},
+    {id:3,nombre:'Carlos López',barrio:'El Porvenir',cel:'312 333 4455',celula:3,rol:'Líder'},
+    {id:4,nombre:'Ana Torres',barrio:'San José',cel:'313 444 5566',celula:4,rol:'Líder'},
+    {id:5,nombre:'Luis Martínez',barrio:'La Gloria',cel:'314 555 6677',celula:5,rol:'Líder'},
+    {id:6,nombre:'Rosa Jiménez',barrio:'Villa Nueva',cel:'315 666 7788',celula:6,rol:'Líder'},
+    {id:7,nombre:'Jorge Herrera',barrio:'El Centro',cel:'316 777 8899',celula:1,rol:'Vocero'},
+    {id:8,nombre:'Claudia Reyes',barrio:'La Esperanza',cel:'317 888 9900',celula:2,rol:'Secretario'},
+    {id:9,nombre:'Andrés Morales',barrio:'El Porvenir',cel:'318 999 0011',celula:3,rol:'Veedor'},
+    {id:10,nombre:'Patricia Soto',barrio:'San José',cel:'319 000 1122',celula:4,rol:'Miembro'},
+  ],
+  tareas: [
+    {id:1,desc:'Visitar 20 hogares del sector norte',celula:0,prio:'Alta',done:true},
+    {id:2,desc:'Crear grupo de WhatsApp con nuevos miembros',celula:1,prio:'Alta',done:true},
+    {id:3,desc:'Publicar 3 contenidos en redes esta semana',celula:0,prio:'Media',done:false},
+    {id:4,desc:'Llevar acta de la reunión semanal',celula:2,prio:'Alta',done:true},
+    {id:5,desc:'Confirmar asistencia al taller #2',celula:0,prio:'Media',done:false},
+    {id:6,desc:'Grabar testimonio en video de un miembro',celula:3,prio:'Baja',done:false},
+    {id:7,desc:'Enviar reporte semanal al coordinador zonal',celula:0,prio:'Alta',done:false},
+    {id:8,desc:'Identificar 2 nuevos posibles miembros',celula:4,prio:'Media',done:true},
+  ],
+  actividad: [
+    {texto:'Pedro Ramírez completó "Visitar 20 hogares"',tiempo:'Hace 2h',color:'#4ADE80'},
+    {texto:'Nuevo miembro: Claudia Reyes — Barrio La Esperanza',tiempo:'Hace 3h',color:'#A5B4FC'},
+    {texto:'Célula Villa Nueva supera meta de hogares',tiempo:'Hace 5h',color:'#FBB024'},
+    {texto:'Acta de reunión registrada — Barrio El Centro',tiempo:'Ayer',color:'#4ADE80'},
+    {texto:'Alerta: Célula La Gloria por debajo de meta',tiempo:'Ayer',color:'#F87171'},
+  ]
+};
+
+const avatarColors = ['#4A3FD4','#0C8A60','#C93B1C','#B8680A','#7C3AED','#0891B2'];
+const getInitials = n => n.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+
+// ═══════════════════════════ NAV ═══════════════════════════
+function goTo(page, el){
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.querySelectorAll('.content').forEach(c=>{c.classList.remove('active');c.style.display='none'});
+  if(el) el.classList.add('active');
+  const p = document.getElementById('page-'+page);
+  if(p){p.classList.add('active');p.style.display='block'}
+  if(page==='celulas') renderCelulas();
+  if(page==='miembros') renderMiembros();
+  if(page==='tareas') renderTareas();
+  if(page==='reportes') renderReportes();
+  if(page==='mensajes') renderMensajes();
+  if(page==='dashboard') renderDashboard();
+}
+
+// ═══════════════════════════ MODALES ═══════════════════════════
+function openModal(id){
+  populateSelects();
+  document.getElementById(id).classList.add('open');
+}
+function closeModal(id){ document.getElementById(id).classList.remove('open'); }
+document.querySelectorAll('.modal-overlay').forEach(m=>{
+  m.addEventListener('click',e=>{ if(e.target===m) m.classList.remove('open'); });
+});
+
+function populateSelects(){
+  ['nm-celula','nt-celula','filter-celula'].forEach(sid=>{
+    const sel = document.getElementById(sid);
+    if(!sel) return;
+    const isFilter = sid==='filter-celula';
+    sel.innerHTML = isFilter ? '<option value="">Todas las células</option>' : '<option value="">Seleccionar célula...</option>';
+    state.celulas.forEach(c=>{
+      const o = document.createElement('option');
+      o.value=c.id; o.textContent=c.nombre;
+      sel.appendChild(o);
+    });
+  });
+}
+
+function toast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2500);
+}
+
+// ═══════════════════════════ DASHBOARD ═══════════════════════════
+function renderDashboard(){
+  // Actividad
+  const al = document.getElementById('actividad-list');
+  if(al) al.innerHTML = state.actividad.map(a=>`
+    <div class="activity-item">
+      <div class="act-dot" style="background:${a.color}"></div>
+      <div><div class="act-text">${a.texto}</div><div class="act-time">${a.tiempo}</div></div>
+    </div>`).join('');
+
+  // Tabla resumen
+  const tb = document.getElementById('tabla-resumen');
+  if(tb) tb.innerHTML = state.celulas.map(c=>{
+    const meta = c.miembros >= 8;
+    const pct = Math.round(c.miembros/10*100);
+    return `<tr style="border-bottom:1px solid var(--line)">
+      <td style="padding:10px 10px;color:var(--white);font-weight:500">${c.nombre}</td>
+      <td style="padding:10px 10px;text-align:center;color:var(--white)">${c.miembros}</td>
+      <td style="padding:10px 10px;text-align:center;color:var(--white)">${c.hogares}</td>
+      <td style="padding:10px 10px;text-align:center">
+        <div style="height:4px;background:var(--dark3);border-radius:2px;overflow:hidden;width:60px;margin:0 auto">
+          <div style="width:${pct}%;height:100%;background:var(--p2);border-radius:2px"></div>
+        </div>
+      </td>
+      <td style="padding:10px 10px;text-align:center">
+        <span class="cel-badge ${c.estado==='activa'?'badge-activa':c.estado==='riesgo'?'badge-riesgo':'badge-nueva'}">${c.estado}</span>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+// ═══════════════════════════ CÉLULAS ═══════════════════════════
+function renderCelulas(){
+  const g = document.getElementById('celulas-grid');
+  if(!g) return;
+  g.innerHTML = state.celulas.map(c=>`
+    <div class="celula-card" onclick="selectCelula(${c.id})">
+      <div class="cel-header">
+        <div class="cel-name">${c.nombre}</div>
+        <span class="cel-badge ${c.estado==='activa'?'badge-activa':c.estado==='riesgo'?'badge-riesgo':'badge-nueva'}">${c.estado}</span>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:2px">${c.zona}</div>
+      <div style="font-size:12px;color:var(--muted)">Lider: <span style="color:rgba(255,255,255,.75)">${c.lider}</span></div>
+      <div class="cel-stats">
+        <div class="cel-stat"><div class="cel-stat-n">${c.miembros}</div><div class="cel-stat-l">Miembros</div></div>
+        <div class="cel-stat"><div class="cel-stat-n">${c.hogares}</div><div class="cel-stat-l">Hogares</div></div>
+        <div class="cel-stat"><div class="cel-stat-n">${Math.round(c.miembros/10*100)}%</div><div class="cel-stat-l">Meta</div></div>
+      </div>
+      <div class="cel-bar"><div class="cel-bar-fill" style="width:${Math.round(c.miembros/10*100)}%"></div></div>
+    </div>`).join('');
+}
+
+function selectCelula(id){
+  document.querySelectorAll('.celula-card').forEach(c=>c.classList.remove('selected'));
+  event.currentTarget.classList.add('selected');
+  toast('Célula seleccionada');
+}
+
+function addCelula(){
+  const nombre = document.getElementById('nc-nombre').value.trim();
+  const zona   = document.getElementById('nc-zona').value.trim();
+  const lider  = document.getElementById('nc-lider').value.trim();
+  const cel    = document.getElementById('nc-cel').value.trim();
+  if(!nombre||!lider){ toast('Completa nombre y líder'); return; }
+  state.celulas.push({id:Date.now(),nombre,zona,lider,cel,miembros:1,hogares:0,estado:'nueva'});
+  closeModal('modal-celula');
+  toast('¡Célula creada exitosamente!');
+  renderCelulas(); renderDashboard();
+  document.getElementById('kpi-celulas').textContent = state.celulas.length;
+  document.getElementById('sem-v').textContent = state.celulas.filter(c=>c.estado==='activa').length;
+}
+
+// ═══════════════════════════ MIEMBROS ═══════════════════════════
+function renderMiembros(){
+  const search = (document.getElementById('search-miembro')?.value||'').toLowerCase();
+  const cFilter= document.getElementById('filter-celula')?.value||'';
+  const rFilter= document.getElementById('filter-rol')?.value||'';
+  populateSelects();
+  const filtered = state.miembros.filter(m=>{
+    const matchS = m.nombre.toLowerCase().includes(search)||m.barrio.toLowerCase().includes(search);
+    const matchC = !cFilter || String(m.celula)===cFilter;
+    const matchR = !rFilter || m.rol===rFilter;
+    return matchS && matchC && matchR;
+  });
+  const list = document.getElementById('miembros-list');
+  if(!list) return;
+  if(!filtered.length){ list.innerHTML='<div style="color:var(--muted);font-size:13px;padding:16px 0">No se encontraron miembros.</div>'; return; }
+  list.innerHTML = filtered.map((m,i)=>{
+    const cel = state.celulas.find(c=>c.id===m.celula);
+    return `<div class="member-row">
+      <div class="avatar" style="background:${avatarColors[i%6]}20;color:${avatarColors[i%6]};border:1px solid ${avatarColors[i%6]}40">${getInitials(m.nombre)}</div>
+      <div class="member-info">
+        <div class="member-name">${m.nombre}</div>
+        <div class="member-meta">${m.barrio} ${cel?'— '+cel.nombre:''} · ${m.cel}</div>
+      </div>
+      <span class="role-pill role-${m.rol.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'')}">${m.rol}</span>
+    </div>`;
+  }).join('');
+}
+
+function addMiembro(){
+  const nombre = document.getElementById('nm-nombre').value.trim();
+  const barrio = document.getElementById('nm-barrio').value.trim();
+  const cel    = document.getElementById('nm-cel').value.trim();
+  const celula = parseInt(document.getElementById('nm-celula').value)||0;
+  const rol    = document.getElementById('nm-rol').value;
+  if(!nombre||!barrio){ toast('Completa nombre y barrio'); return; }
+  state.miembros.push({id:Date.now(),nombre,barrio,cel,celula,rol});
+  if(celula){ const c=state.celulas.find(x=>x.id===celula); if(c) c.miembros++; }
+  closeModal('modal-miembro');
+  toast('¡Miembro registrado!');
+  renderMiembros();
+  document.getElementById('kpi-miembros').textContent = state.miembros.length;
+}
+
+// ═══════════════════════════ TAREAS ═══════════════════════════
+function renderTareas(){
+  const tabsEl = document.getElementById('tareas-tabs');
+  const contentEl = document.getElementById('tareas-content');
+  populateSelects();
+  const tabs = [{id:0,name:'Todas'},...state.celulas.map(c=>({id:c.id,name:c.nombre.replace('Barrio ','')}))];
+  let activeTab = parseInt(tabsEl.dataset.active||'0');
+
+  tabsEl.innerHTML = tabs.map(t=>`
+    <button class="tab-btn ${t.id===activeTab?'active':''}" onclick="setTareaTab(${t.id})">${t.name}</button>
+  `).join('');
+
+  const filtered = activeTab===0 ? state.tareas : state.tareas.filter(t=>t.celula===0||t.celula===activeTab);
+  const done = filtered.filter(t=>t.done).length;
+  const pct = filtered.length ? Math.round(done/filtered.length*100) : 0;
+
+  contentEl.innerHTML = `
+    <div class="card" style="margin-bottom:14px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <div style="font-size:13px;color:var(--muted)">${done} de ${filtered.length} tareas completadas</div>
+        <div style="font-size:13px;font-weight:600;color:var(--white)">${pct}%</div>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" style="width:${pct}%;background:var(--p2)"></div></div>
+    </div>
+    <div class="card">
+      ${filtered.map(t=>`
+        <div style="display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)">
+          <div onclick="toggleTarea(${t.id})" style="width:18px;height:18px;border-radius:5px;border:1px solid ${t.done?'var(--p2)':'var(--line)'};background:${t.done?'var(--p2)':'transparent'};cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;margin-top:1px">
+            ${t.done?'<svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 5L4 7.5L8.5 2.5" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>':''}
+          </div>
+          <div style="flex:1">
+            <div style="font-size:13px;color:${t.done?'var(--muted)':'var(--white)'};text-decoration:${t.done?'line-through':'none'}">${t.desc}</div>
+            <div style="font-size:11px;color:var(--muted);margin-top:2px">${t.celula===0?'Todas las células':(state.celulas.find(c=>c.id===t.celula)?.nombre||'')}</div>
+          </div>
+          <span style="font-size:10px;font-weight:600;padding:2px 8px;border-radius:10px;${t.prio==='Alta'?'background:rgba(248,113,113,.15);color:#F87171':t.prio==='Media'?'background:rgba(251,191,36,.15);color:#FBB024':'background:var(--dark3);color:var(--muted)'}">${t.prio}</span>
+        </div>`).join('')}
+    </div>`;
+}
+
+function setTareaTab(id){
+  document.getElementById('tareas-tabs').dataset.active = id;
+  renderTareas();
+}
+
+function toggleTarea(id){
+  const t = state.tareas.find(x=>x.id===id);
+  if(t){ t.done=!t.done; renderTareas(); toast(t.done?'Tarea completada ✓':'Tarea reabierta'); }
+}
+
+function addTarea(){
+  const desc  = document.getElementById('nt-desc').value.trim();
+  const celula= parseInt(document.getElementById('nt-celula').value)||0;
+  const prio  = document.getElementById('nt-prio').value;
+  if(!desc){ toast('Escribe la descripción de la tarea'); return; }
+  state.tareas.push({id:Date.now(),desc,celula,prio,done:false});
+  closeModal('modal-tarea');
+  toast('Tarea agregada');
+  renderTareas();
+}
+
+// ═══════════════════════════ REPORTES ═══════════════════════════
+function renderReportes(){
+  const el = document.getElementById('reportes-content');
+  if(!el) return;
+  el.innerHTML = `
+    <div class="card" style="margin-bottom:16px">
+      <div class="card-title">Reporte semanal — semana del ${new Date().toLocaleDateString('es-CO',{day:'numeric',month:'long',year:'numeric'})}</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px">
+        <div style="background:var(--dark3);border-radius:10px;padding:12px;text-align:center">
+          <div style="font-family:var(--fs);font-size:20px;font-weight:800;color:var(--white)">${state.celulas.length}</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:3px">Células activas</div>
+        </div>
+        <div style="background:var(--dark3);border-radius:10px;padding:12px;text-align:center">
+          <div style="font-family:var(--fs);font-size:20px;font-weight:800;color:var(--white)">${state.miembros.length}</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:3px">Miembros totales</div>
+        </div>
+        <div style="background:var(--dark3);border-radius:10px;padding:12px;text-align:center">
+          <div style="font-family:var(--fs);font-size:20px;font-weight:800;color:var(--white)">${Math.round(state.tareas.filter(t=>t.done).length/state.tareas.length*100)}%</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:3px">Tareas completadas</div>
+        </div>
+      </div>
+      ${state.celulas.map(c=>`
+        <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)">
+          <div style="flex:1">
+            <div style="font-size:13px;font-weight:500;color:var(--white)">${c.nombre}</div>
+            <div style="font-size:11px;color:var(--muted)">Líder: ${c.lider} · ${c.cel}</div>
+          </div>
+          <div style="text-align:center;min-width:50px">
+            <div style="font-family:var(--fs);font-size:16px;font-weight:700;color:var(--white)">${c.miembros}</div>
+            <div style="font-size:10px;color:var(--muted)">miembros</div>
+          </div>
+          <div style="text-align:center;min-width:50px">
+            <div style="font-family:var(--fs);font-size:16px;font-weight:700;color:var(--white)">${c.hogares}</div>
+            <div style="font-size:10px;color:var(--muted)">hogares</div>
+          </div>
+          <span class="cel-badge ${c.estado==='activa'?'badge-activa':c.estado==='riesgo'?'badge-riesgo':'badge-nueva'}">${c.estado}</span>
+        </div>`).join('')}
+    </div>
+    <button class="btn btn-teal btn-sm" onclick="toast('Reporte copiado al portapapeles')">Copiar reporte para WhatsApp</button>`;
+}
+
+// ═══════════════════════════ MENSAJES ═══════════════════════════
+function renderMensajes(){
+  const el = document.getElementById('mensajes-content');
+  if(!el) return;
+  const grupos = [
+    {titulo:'Mensajes de lunes — arranque de semana',msgs:[
+      'Buenos días equipo. Esta semana nuestra misión es hablar con 3 vecinos cada uno. ¡Podemos! 💪',
+      'Hola a todos. Arrancamos nueva semana. Recuerden: 30 minutos de su tiempo pueden cambiar el futuro de nuestro barrio. Vamos juntos.',
+    ]},
+    {titulo:'Mensajes de miércoles — seguimiento',msgs:[
+      '¿Cómo van? Compartan en el grupo cuántos vecinos han contactado esta semana. Cada conversación cuenta.',
+      'Recordatorio: nuestra reunión de célula es el [día] a las [hora] en [lugar]. Los esperamos a todos.',
+    ]},
+    {titulo:'Mensajes de viernes — cierre de semana',msgs:[
+      'Resumen de la semana: [X] nuevos miembros, [X] hogares visitados. Ustedes son la razón por la que esto funciona. 🙌',
+      'Fin de semana ideal para hablar con vecinos. Un café y una conversación pueden cambiar un voto.',
+    ]},
+    {titulo:'Mensajes de motivación',msgs:[
+      'No somos políticos. Somos vecinos organizados que decidimos actuar. Eso somos. Eso vale.',
+      'Cada puerta que tocan, cada vecino que escuchan, es un paso más hacia el cambio que queremos. Gracias por su tiempo y su compromiso.',
+    ]},
+    {titulo:'Mensajes para el día de elecciones',msgs:[
+      '🗳️ ¡Hoy es el día! Las urnas abren a las 6am. Vamos juntos, vamos temprano, vamos con la frente en alto.',
+      'Ya votamos [N] personas de nuestra célula. Faltan [N]. ¿Quién necesita que lo acompañemos?',
+      'Lo logramos. Independientemente del resultado, hoy demostramos que los ciudadanos organizados cambian las cosas. Gracias a cada uno.',
+    ]},
+  ];
+  el.innerHTML = grupos.map(g=>`
+    <div class="card">
+      <div class="card-title">${g.titulo}</div>
+      ${g.msgs.map((m,i)=>`
+        <div class="wamsg">${m}</div>
+        <button class="copy-btn" onclick="copyMsg('${m.replace(/'/g,"\\'")}')">Copiar mensaje</button>
+      `).join('')}
+    </div>`).join('');
+}
+
+function copyMsg(txt){
+  navigator.clipboard.writeText(txt).then(()=>toast('Mensaje copiado ✓')).catch(()=>toast('Copiado al portapapeles'));
+}
+
+// ═══════════════════════════ INIT ═══════════════════════════
+renderDashboard();
+populateSelects();
+// Mostrar solo el dashboard activo al inicio
+document.querySelectorAll('.content').forEach(c=>{ if(!c.classList.contains('active')) c.style.display='none'; });
+</script>
+</body>
+</html>
