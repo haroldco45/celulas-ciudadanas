@@ -3,460 +3,480 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Células Ciudadanas — Vibras Positivas HM</title>
+<title>Células Ciudadanas</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-:root {
-  --p:    #4A3FD4;
-  --p2:   #6C5FE8;
-  --p3:   #EEF0FF;
-  --t:    #0C8A60;
-  --t2:   #D6F5E8;
-  --c:    #C93B1C;
-  --c2:   #FDEEE9;
-  --a:    #B8680A;
-  --a2:   #FEF3E2;
-  --dark: #0E0E1A;
-  --dark2:#181828;
-  --dark3:#22223A;
-  --mid:  #3A3A5C;
-  --muted:#7C7CA0;
-  --line: rgba(255,255,255,.08);
-  --white:#FFFFFF;
-  --fs:   'Syne', sans-serif;
-  --fb:   'DM Sans', sans-serif;
+:root{
+  --p:#4A3FD4;--p2:#6C5FE8;--p3:#EEEDFE;
+  --t:#0C8A60;--t2:#E1F5EE;
+  --c:#C93B1C;--c2:#FAECE7;
+  --a:#B8680A;--a2:#FAEEDA;
+  --g:#25D366;
+  --dark:#0E0E1A;--dark2:#181828;--dark3:#22223A;
+  --muted:#7C7CA0;--line:rgba(255,255,255,.08);--line2:rgba(255,255,255,.15);
+  --white:#FFFFFF;--fs:'Syne',sans-serif;--fb:'DM Sans',sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{background:var(--dark);color:var(--white);font-family:var(--fb);min-height:100vh;overflow-x:hidden}
-
-/* ── LAYOUT ── */
 .app{display:flex;min-height:100vh}
-.sidebar{width:220px;background:var(--dark2);border-right:1px solid var(--line);display:flex;flex-direction:column;flex-shrink:0;position:sticky;top:0;height:100vh;overflow-y:auto}
+.sidebar{width:224px;background:var(--dark2);border-right:1px solid var(--line);display:flex;flex-direction:column;flex-shrink:0;position:sticky;top:0;height:100vh;overflow-y:auto}
 .main{flex:1;overflow-y:auto;min-width:0}
-
-/* ── SIDEBAR ── */
-.brand{padding:24px 20px 16px;border-bottom:1px solid var(--line)}
-.brand-name{font-family:var(--fs);font-size:13px;font-weight:800;color:var(--white);letter-spacing:.06em;text-transform:uppercase}
-.brand-sub{font-size:10px;color:var(--muted);margin-top:2px;letter-spacing:.04em}
-.nav{padding:12px 10px;flex:1}
-.nav-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:10px;cursor:pointer;font-size:13px;color:var(--muted);font-family:var(--fb);font-weight:400;transition:all .18s;margin-bottom:2px;border:none;background:none;width:100%;text-align:left}
-.nav-item:hover{background:var(--line);color:var(--white)}
-.nav-item.active{background:var(--p);color:var(--white);font-weight:500}
-.nav-icon{width:18px;height:18px;flex-shrink:0;opacity:.7}
-.nav-item.active .nav-icon{opacity:1}
-.nav-sep{height:1px;background:var(--line);margin:8px 10px}
-.sidebar-footer{padding:16px 20px;border-top:1px solid var(--line);font-size:10px;color:var(--muted);line-height:1.5}
-
-/* ── HEADER ── */
-.page-header{padding:28px 32px 20px;border-bottom:1px solid var(--line)}
-.page-title{font-family:var(--fs);font-size:22px;font-weight:800;color:var(--white)}
-.page-sub{font-size:13px;color:var(--muted);margin-top:4px}
-.header-row{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap}
-
-/* ── CONTENT ── */
-.content{padding:24px 32px;display:none}
-.content.active{display:block}
-
-/* ── CARDS ── */
-.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
-.kpi-card{background:var(--dark2);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
-.kpi-n{font-family:var(--fs);font-size:28px;font-weight:800;color:var(--white);line-height:1}
-.kpi-l{font-size:11px;color:var(--muted);margin-top:6px;letter-spacing:.03em}
-.kpi-delta{font-size:11px;margin-top:4px;font-weight:500}
-.delta-up{color:#4ADE80}
-.delta-neutral{color:var(--muted)}
-.card{background:var(--dark2);border:1px solid var(--line);border-radius:16px;padding:20px 22px;margin-bottom:16px}
-.card-title{font-family:var(--fs);font-size:14px;font-weight:700;color:var(--white);margin-bottom:14px}
-.two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
-
-/* ── TABLA DE CÉLULAS ── */
-.celulas-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:24px}
-.celula-card{background:var(--dark2);border:1px solid var(--line);border-radius:16px;padding:18px 20px;cursor:pointer;transition:all .2s}
-.celula-card:hover{border-color:var(--p2);transform:translateY(-2px)}
-.celula-card.selected{border-color:var(--p);background:rgba(74,63,212,.12)}
-.cel-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
-.cel-name{font-family:var(--fs);font-size:15px;font-weight:700;color:var(--white)}
-.cel-badge{font-size:10px;font-weight:600;padding:3px 9px;border-radius:20px;letter-spacing:.04em}
-.badge-activa{background:rgba(12,138,96,.2);color:#4ADE80;border:1px solid rgba(12,138,96,.3)}
-.badge-nueva{background:rgba(74,63,212,.2);color:#A5B4FC;border:1px solid rgba(74,63,212,.3)}
-.badge-riesgo{background:rgba(201,59,28,.2);color:#FCA5A5;border:1px solid rgba(201,59,28,.3)}
-.cel-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
-.cel-stat{text-align:center}
-.cel-stat-n{font-family:var(--fs);font-size:16px;font-weight:700;color:var(--white)}
-.cel-stat-l{font-size:10px;color:var(--muted);margin-top:1px}
-.cel-bar{height:3px;background:var(--dark3);border-radius:2px;margin-top:10px;overflow:hidden}
-.cel-bar-fill{height:100%;border-radius:2px;background:var(--p2);transition:width .6s}
-
-/* ── FORMULARIO / MODALES ── */
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:100;align-items:center;justify-content:center;padding:20px}
-.modal-overlay.open{display:flex}
-.modal{background:var(--dark2);border:1px solid var(--line);border-radius:20px;padding:28px;width:100%;max-width:480px;max-height:90vh;overflow-y:auto}
-.modal-title{font-family:var(--fs);font-size:18px;font-weight:800;color:var(--white);margin-bottom:20px}
-.field{margin-bottom:14px}
-.field label{display:block;font-size:12px;color:var(--muted);margin-bottom:5px;letter-spacing:.03em}
-.field input,.field select,.field textarea{width:100%;background:var(--dark3);border:1px solid var(--line);border-radius:10px;padding:10px 14px;color:var(--white);font-family:var(--fb);font-size:14px;outline:none;transition:border-color .2s}
-.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--p2)}
-.field select option{background:var(--dark2)}
-.field textarea{resize:vertical;min-height:80px}
-.modal-btns{display:flex;gap:8px;margin-top:20px}
-
-/* ── BOTONES ── */
-.btn{padding:9px 18px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;border:none;font-family:var(--fb);transition:all .18s;letter-spacing:.02em}
-.btn-primary{background:var(--p);color:var(--white)}
-.btn-primary:hover{background:var(--p2)}
-.btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--line)}
-.btn-ghost:hover{color:var(--white);border-color:rgba(255,255,255,.2)}
-.btn-danger{background:rgba(201,59,28,.15);color:#FCA5A5;border:1px solid rgba(201,59,28,.2)}
-.btn-danger:hover{background:rgba(201,59,28,.25)}
-.btn-sm{padding:6px 14px;font-size:12px;border-radius:8px}
-.btn-teal{background:rgba(12,138,96,.15);color:#4ADE80;border:1px solid rgba(12,138,96,.2)}
-
-/* ── LISTA DE MIEMBROS ── */
-.member-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
-.member-row:last-child{border-bottom:none}
-.avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--fs);font-size:13px;font-weight:700;flex-shrink:0}
-.member-info{flex:1}
-.member-name{font-size:13px;font-weight:500;color:var(--white)}
-.member-meta{font-size:11px;color:var(--muted);margin-top:1px}
-.role-pill{font-size:10px;font-weight:600;padding:2px 8px;border-radius:12px}
-.role-lider{background:rgba(74,63,212,.25);color:#A5B4FC}
-.role-vocero{background:rgba(12,138,96,.2);color:#6EE7B7}
-.role-secretario{background:rgba(184,104,10,.2);color:#FCD34D}
-.role-veedor{background:rgba(201,59,28,.2);color:#FCA5A5}
-.role-miembro{background:var(--dark3);color:var(--muted)}
-
-/* ── ACTIVIDAD / TIMELINE ── */
-.activity-item{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
-.activity-item:last-child{border-bottom:none}
-.act-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:5px}
-.act-text{font-size:13px;color:var(--white);line-height:1.45}
-.act-time{font-size:11px;color:var(--muted);margin-top:2px}
-
-/* ── PROGRESO ── */
-.progress-row{margin-bottom:12px}
-.progress-label{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:5px}
-.progress-bar{height:6px;background:var(--dark3);border-radius:3px;overflow:hidden}
-.progress-fill{height:100%;border-radius:3px;transition:width .8s ease}
-
-/* ── TABS ── */
-.tabs{display:flex;gap:4px;margin-bottom:20px;background:var(--dark3);padding:4px;border-radius:12px;width:fit-content}
-.tab-btn{padding:7px 16px;border-radius:9px;font-size:12px;font-weight:600;cursor:pointer;border:none;background:none;color:var(--muted);font-family:var(--fb);transition:all .18s}
-.tab-btn.active{background:var(--dark2);color:var(--white)}
-
-/* ── MENSAJES WHATSAPP ── */
+.brand{padding:20px 18px 14px;border-bottom:1px solid var(--line)}
+.brand-top{display:flex;align-items:center;gap:10px;margin-bottom:2px}
+.brand-icon{width:28px;height:28px;background:var(--p);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.brand-title{font-family:var(--fs);font-size:13px;font-weight:800;color:var(--white);letter-spacing:.05em;text-transform:uppercase;line-height:1.15}
+.brand-sub{font-size:10px;color:var(--muted);margin-top:1px;padding-left:38px}
+.nav{padding:10px 8px;flex:1}
+.ni{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:10px;cursor:pointer;font-size:13px;color:var(--muted);font-family:var(--fb);font-weight:400;transition:all .18s;margin-bottom:2px;border:none;background:none;width:100%;text-align:left}
+.ni:hover{background:rgba(255,255,255,.05);color:var(--white)}
+.ni.active{background:var(--p);color:var(--white);font-weight:500}
+.ni svg{width:17px;height:17px;flex-shrink:0;opacity:.65}
+.ni.active svg{opacity:1}
+.nav-sep{height:1px;background:var(--line);margin:6px 8px}
+.sfooter{padding:12px 18px;border-top:1px solid var(--line);font-size:10px;color:var(--muted);line-height:1.7}
+.save-row{display:flex;align-items:center;gap:5px;margin-bottom:3px}
+.sdot{width:6px;height:6px;border-radius:50%;background:#4ADE80;flex-shrink:0}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.sdot.saving{animation:blink .8s infinite}
+.slbl{font-size:10px;color:var(--muted)}
+/* PAGE */
+.ph{padding:22px 32px 16px;border-bottom:1px solid var(--line)}
+.ptitle{font-family:var(--fs);font-size:22px;font-weight:800;color:var(--white)}
+.psub{font-size:13px;color:var(--muted);margin-top:3px}
+.phr{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.pg{display:none}
+.pg.active{display:block;animation:fi .22s ease}
+@keyframes fi{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+.pcontent{padding:22px 32px}
+/* KPI */
+.kg{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.kc{background:var(--dark2);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.kn{font-family:var(--fs);font-size:26px;font-weight:800;color:var(--white);line-height:1}
+.kl{font-size:11px;color:var(--muted);margin-top:5px}
+.kd{font-size:11px;margin-top:4px;font-weight:500}
+.dup{color:#4ADE80}.dn{color:var(--muted)}
+/* CARD */
+.card{background:var(--dark2);border:1px solid var(--line);border-radius:16px;padding:20px 22px;margin-bottom:14px}
+.ct{font-family:var(--fs);font-size:14px;font-weight:700;color:var(--white);margin-bottom:14px}
+.tcol{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+/* CÉLULAS */
+.cg{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:20px}
+.cc{background:var(--dark2);border:1px solid var(--line);border-radius:16px;padding:18px 20px;cursor:pointer;transition:all .2s}
+.cc:hover{border-color:var(--p2);transform:translateY(-2px)}
+.cch{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.ccn{font-family:var(--fs);font-size:15px;font-weight:700;color:var(--white)}
+.cbdg{font-size:10px;font-weight:600;padding:3px 9px;border-radius:20px}
+.ba{background:rgba(12,138,96,.2);color:#4ADE80;border:1px solid rgba(12,138,96,.3)}
+.bn{background:rgba(74,63,212,.2);color:#A5B4FC;border:1px solid rgba(74,63,212,.3)}
+.br{background:rgba(201,59,28,.2);color:#FCA5A5;border:1px solid rgba(201,59,28,.3)}
+.cst{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.cstn{font-family:var(--fs);font-size:16px;font-weight:700;color:var(--white);text-align:center}
+.cstl{font-size:10px;color:var(--muted);text-align:center;margin-top:1px}
+.cbar{height:3px;background:var(--dark3);border-radius:2px;margin-top:10px;overflow:hidden}
+.cbarf{height:100%;border-radius:2px;background:var(--p2);transition:width .6s}
+/* MODAL */
+.mo{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;align-items:center;justify-content:center;padding:20px}
+.mo.open{display:flex}
+.md{background:var(--dark2);border:1px solid var(--line2);border-radius:20px;padding:28px;width:100%;max-width:480px;max-height:92vh;overflow-y:auto}
+.mtitle{font-family:var(--fs);font-size:18px;font-weight:800;color:var(--white);margin-bottom:20px}
+.fi{margin-bottom:14px}
+.fi label{display:block;font-size:12px;color:var(--muted);margin-bottom:5px}
+.fi input,.fi select,.fi textarea{width:100%;background:var(--dark3);border:1px solid var(--line);border-radius:10px;padding:10px 14px;color:var(--white);font-family:var(--fb);font-size:14px;outline:none;transition:border-color .2s}
+.fi input:focus,.fi select:focus{border-color:var(--p2)}
+.fi select option{background:var(--dark2)}
+.mbtns{display:flex;gap:8px;margin-top:20px;flex-wrap:wrap}
+/* BOTONES */
+.btn{padding:8px 18px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;border:none;font-family:var(--fb);transition:all .18s;display:inline-flex;align-items:center;gap:6px}
+.bp{background:var(--p);color:#fff}.bp:hover{background:var(--p2)}
+.bg{background:transparent;color:var(--muted);border:1px solid var(--line)}.bg:hover{color:var(--white);border-color:var(--line2)}
+.bd{background:rgba(201,59,28,.15);color:#FCA5A5;border:1px solid rgba(201,59,28,.2)}.bd:hover{background:rgba(201,59,28,.28)}
+.bt{background:rgba(12,138,96,.15);color:#4ADE80;border:1px solid rgba(12,138,96,.2)}.bt:hover{background:rgba(12,138,96,.28)}
+.bam{background:rgba(184,104,10,.15);color:#FCD34D;border:1px solid rgba(184,104,10,.2)}.bam:hover{background:rgba(184,104,10,.28)}
+.bwa{background:rgba(37,211,102,.12);color:#25D366;border:1px solid rgba(37,211,102,.25)}.bwa:hover{background:rgba(37,211,102,.22)}
+.sm{padding:6px 14px;font-size:12px;border-radius:8px}
+/* PROGRESS */
+.pr{margin-bottom:12px}
+.pl{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:5px}
+.pbar{height:6px;background:var(--dark3);border-radius:3px;overflow:hidden}
+.pf{height:100%;border-radius:3px;transition:width .8s ease}
+/* TABS */
+.tabs{display:flex;gap:4px;margin-bottom:18px;background:var(--dark3);padding:4px;border-radius:12px;width:fit-content;flex-wrap:wrap}
+.tb{padding:6px 14px;border-radius:9px;font-size:12px;font-weight:600;cursor:pointer;border:none;background:none;color:var(--muted);font-family:var(--fb);transition:all .18s}
+.tb.active{background:var(--dark2);color:var(--white)}
+/* MIEMBROS */
+.mr{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
+.mr:last-child{border-bottom:none}
+.av{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--fs);font-size:12px;font-weight:700;flex-shrink:0}
+.mname{font-size:13px;font-weight:500;color:var(--white)}
+.mmeta{font-size:11px;color:var(--muted);margin-top:2px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.rp{font-size:10px;font-weight:600;padding:2px 8px;border-radius:12px}
+.rl{background:rgba(74,63,212,.25);color:#A5B4FC}
+.rv{background:rgba(12,138,96,.2);color:#6EE7B7}
+.rs{background:rgba(184,104,10,.2);color:#FCD34D}
+.rve{background:rgba(201,59,28,.2);color:#FCA5A5}
+.rm{background:var(--dark3);color:var(--muted)}
+/* WHATSAPP LINK */
+.wa{display:inline-flex;align-items:center;gap:4px;font-size:11px;color:var(--g);text-decoration:none;padding:2px 7px;border-radius:8px;background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.2);transition:all .18s;white-space:nowrap}
+.wa:hover{background:rgba(37,211,102,.2)}
+.wa svg{width:11px;height:11px;flex-shrink:0}
+/* ACTIVIDAD */
+.ai{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
+.ai:last-child{border-bottom:none}
+.adot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.atxt{font-size:13px;color:var(--white);line-height:1.45}
+.atime{font-size:11px;color:var(--muted);margin-top:2px}
+/* SEMAFORO */
+.sg{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.sc{border-radius:12px;padding:14px;text-align:center}
+.sn{font-family:var(--fs);font-size:22px;font-weight:800}
+.sl{font-size:11px;margin-top:3px;opacity:.8}
+.sv{background:rgba(74,222,128,.1);border:1px solid rgba(74,222,128,.2)}.sv .sn,.sv .sl{color:#4ADE80}
+.sa{background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.2)}.sa .sn,.sa .sl{color:#FBB024}
+.sr{background:rgba(248,113,113,.1);border:1px solid rgba(248,113,113,.2)}.sr .sn,.sr .sl{color:#F87171}
+/* MENSAJES WA */
 .wamsg{background:var(--dark3);border-left:3px solid var(--p2);border-radius:0 10px 10px 0;padding:10px 14px;margin:8px 0;font-size:13px;color:rgba(255,255,255,.85);line-height:1.55;font-style:italic}
-.copy-btn{font-size:11px;color:var(--p2);cursor:pointer;margin-top:4px;display:inline-block;background:none;border:none;font-family:var(--fb);padding:0}
-.copy-btn:hover{color:var(--white)}
-
-/* ── SEMAFORO ── */
-.semaforo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.sem-card{border-radius:12px;padding:14px;text-align:center}
-.sem-n{font-family:var(--fs);font-size:24px;font-weight:800}
-.sem-l{font-size:11px;margin-top:3px;opacity:.8}
-.sem-verde{background:rgba(74,222,128,.1);border:1px solid rgba(74,222,128,.2)}
-.sem-verde .sem-n{color:#4ADE80}
-.sem-verde .sem-l{color:#4ADE80}
-.sem-amarillo{background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.2)}
-.sem-amarillo .sem-n{color:#FBB024}
-.sem-amarillo .sem-l{color:#FBB024}
-.sem-rojo{background:rgba(248,113,113,.1);border:1px solid rgba(248,113,113,.2)}
-.sem-rojo .sem-n{color:#F87171}
-.sem-rojo .sem-l{color:#F87171}
-
-/* ── TOAST ── */
-.toast{position:fixed;bottom:24px;right:24px;background:var(--p);color:var(--white);padding:12px 20px;border-radius:12px;font-size:13px;font-weight:500;z-index:200;opacity:0;transform:translateY(10px);transition:all .3s;pointer-events:none}
+.cpb{font-size:11px;color:var(--p2);cursor:pointer;background:none;border:none;font-family:var(--fb);padding:0;margin-top:2px;display:inline-block}
+.cpb:hover{color:var(--white)}
+/* BACKUP */
+.bkg{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.bkc{background:var(--dark3);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+.bki{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:12px}
+.bkt{font-family:var(--fs);font-size:14px;font-weight:700;color:var(--white);margin-bottom:4px}
+.bkd{font-size:12px;color:var(--muted);line-height:1.5;margin-bottom:14px}
+/* TABLA */
+.tbl{width:100%;border-collapse:collapse;font-size:13px}
+.tbl th{text-align:left;padding:8px 10px;color:var(--muted);font-weight:500;font-size:11px;border-bottom:1px solid var(--line);white-space:nowrap}
+.tbl td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:middle}
+.tbl tr:last-child td{border-bottom:none}
+/* TOAST */
+.toast{position:fixed;bottom:24px;right:24px;padding:12px 20px;border-radius:12px;font-size:13px;font-weight:500;z-index:300;opacity:0;transform:translateY(10px);transition:all .28s;pointer-events:none;max-width:320px}
 .toast.show{opacity:1;transform:translateY(0)}
-
-/* ── ANIMACIONES ── */
-@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-.content.active{animation:fadeIn .25s ease}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
-.live-dot{width:8px;height:8px;border-radius:50%;background:#4ADE80;display:inline-block;margin-right:5px;animation:pulse 2s infinite}
-
-/* ── RESPONSIVE ── */
+.tok{background:var(--p);color:#fff}
+.tok2{background:var(--t);color:#fff}
+.tok3{background:var(--g);color:#fff}
+.terr{background:var(--c);color:#fff}
+/* PRINT */
+@media print{
+  .sidebar,.no-print{display:none!important}
+  .app{display:block}.main{overflow:visible}
+  body{background:#fff!important;color:#000!important}
+  .pg{display:block!important;padding:0}
+  .ph{padding:0 0 12px;margin-bottom:14px}
+  .card{border:1px solid #ddd!important;background:#fff!important;break-inside:avoid;margin-bottom:12px;page-break-inside:avoid}
+  .ct,.ptitle,.kn,.ccn,.cstn,.sn{color:#000!important}
+  .kl,.psub,.kd,.mmeta,.atime,.cstl,.sl{color:#555!important}
+  .kc{background:#f7f7f7!important;border:1px solid #ddd!important}
+  .print-hdr{display:block!important}
+  .cbarf,.pf{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .cg{grid-template-columns:repeat(2,1fr)}
+  .kg{grid-template-columns:repeat(4,1fr)}
+  .tcol{grid-template-columns:1fr 1fr}
+  .tbl td,.tbl th{color:#000!important;border-color:#ddd!important}
+  .cbdg{background:#eee!important;color:#333!important;border:1px solid #ccc!important}
+  .wamsg{background:#f5f5f5!important;color:#222!important;border-left:3px solid #555!important}
+  .wa{background:#e8f5e9!important;color:#1a7a40!important;border-color:#a5d6a7!important}
+  @page{margin:16mm 14mm;size:A4}
+}
+.print-hdr{display:none;text-align:center;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid #4A3FD4}
+.print-hdr h1{font-size:22px;font-weight:800;color:#4A3FD4;font-family:'Syne',sans-serif}
+.print-hdr p{font-size:12px;color:#666;margin-top:4px}
 @media(max-width:768px){
   .sidebar{display:none}
-  .kpi-grid{grid-template-columns:repeat(2,1fr)}
-  .celulas-grid{grid-template-columns:1fr}
-  .two-col{grid-template-columns:1fr}
-  .content{padding:16px}
-  .page-header{padding:20px 16px 14px}
+  .kg{grid-template-columns:repeat(2,1fr)}
+  .cg,.tcol,.bkg{grid-template-columns:1fr}
+  .pcontent{padding:16px}
+  .ph{padding:16px 16px 12px}
 }
 </style>
 </head>
 <body>
-
 <div class="app">
-<!-- ── SIDEBAR ── -->
+
+<!-- SIDEBAR -->
 <aside class="sidebar">
   <div class="brand">
-    <div class="brand-name">Vibras Positivas</div>
-    <div class="brand-sub">HM — Células Ciudadanas</div>
+    <div class="brand-top">
+      <div class="brand-icon"><svg width="16" height="16" viewBox="0 0 20 20" fill="white"><path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v1h8v-1zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-1a4 4 0 00-1.447-3.057A4.977 4.977 0 0118 18v1h-2zM4 18v-1a4.978 4.978 0 011.447-4.057A4 4 0 004 18v1H2v-1z"/></svg></div>
+      <div class="brand-title">Células<br>Ciudadanas</div>
+    </div>
+    <div class="brand-sub">Sistema de gestión</div>
   </div>
   <nav class="nav">
-    <button class="nav-item active" onclick="goTo('dashboard',this)">
-      <svg class="nav-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M3 4a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm8 0a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1V4zM3 12a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H4a1 1 0 01-1-1v-4zm8 0a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z"/></svg>
+    <button class="ni active" onclick="goTo('dashboard',this)">
+      <svg viewBox="0 0 20 20" fill="currentColor"><path d="M3 4a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm8 0a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1V4zM3 12a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H4a1 1 0 01-1-1v-4zm8 0a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z"/></svg>
       Dashboard
     </button>
-    <button class="nav-item" onclick="goTo('celulas',this)">
-      <svg class="nav-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v1h8v-1zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-1a4 4 0 00-1.447-3.057A4.977 4.977 0 0118 18v1h-2zM4 18v-1a4.978 4.978 0 011.447-4.057A4 4 0 004 18v1H2v-1z"/></svg>
+    <button class="ni" onclick="goTo('celulas',this)">
+      <svg viewBox="0 0 20 20" fill="currentColor"><path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v1h8v-1zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-1a4 4 0 00-1.447-3.057A4.977 4.977 0 0118 18v1h-2zM4 18v-1a4.978 4.978 0 011.447-4.057A4 4 0 004 18v1H2v-1z"/></svg>
       Células
     </button>
-    <button class="nav-item" onclick="goTo('miembros',this)">
-      <svg class="nav-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/></svg>
+    <button class="ni" onclick="goTo('miembros',this)">
+      <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/></svg>
       Miembros
     </button>
-    <button class="nav-item" onclick="goTo('tareas',this)">
-      <svg class="nav-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+    <button class="ni" onclick="goTo('tareas',this)">
+      <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
       Tareas
     </button>
-    <button class="nav-item" onclick="goTo('reportes',this)">
-      <svg class="nav-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zm6-4a1 1 0 011-1h2a1 1 0 011 1v13a1 1 0 01-1 1h-2a1 1 0 01-1-1V3z"/></svg>
+    <button class="ni" onclick="goTo('reportes',this)">
+      <svg viewBox="0 0 20 20" fill="currentColor"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zm6-4a1 1 0 011-1h2a1 1 0 011 1v13a1 1 0 01-1 1h-2a1 1 0 01-1-1V3z"/></svg>
       Reportes
     </button>
     <div class="nav-sep"></div>
-    <button class="nav-item" onclick="goTo('mensajes',this)">
-      <svg class="nav-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z" clip-rule="evenodd"/></svg>
+    <button class="ni" onclick="goTo('mensajes',this)">
+      <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z" clip-rule="evenodd"/></svg>
       Mensajes
     </button>
+    <button class="ni" onclick="goTo('backup',this)">
+      <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+      Backup
+    </button>
   </nav>
-  <div class="sidebar-footer">
-    <span class="live-dot"></span>Sistema activo<br>
+  <div class="sfooter" id="sfooter">
+    <div class="save-row"><div class="sdot" id="sdot"></div><span class="slbl" id="slbl">Guardado</span></div>
     Desarrollada por Vibras Positivas HM<br>Derechos de Autor Reservados
   </div>
 </aside>
 
-<!-- ── MAIN ── -->
+<!-- MAIN -->
 <main class="main">
 
-<!-- ══ DASHBOARD ══ -->
-<div class="content active" id="page-dashboard">
-  <div class="page-header">
-    <div class="header-row">
-      <div>
-        <div class="page-title">Dashboard general</div>
-        <div class="page-sub">Semana en curso — resumen de toda la red de células</div>
+<!-- DASHBOARD -->
+<div class="pg active" id="page-dashboard">
+  <div class="ph"><div class="phr">
+    <div><div class="ptitle">Dashboard general</div><div class="psub">Resumen en tiempo real de toda la red</div></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap" class="no-print">
+      <button class="btn bg sm" onclick="printPg('dashboard')">🖨 Imprimir</button>
+      <button class="btn bp sm" onclick="openMo('mo-cel')">+ Nueva célula</button>
+    </div>
+  </div></div>
+  <div class="pcontent">
+    <div class="print-hdr"><h1>Células Ciudadanas — Informe</h1><p id="phd1"></p></div>
+    <div class="kg">
+      <div class="kc"><div class="kn" id="k-cel">0</div><div class="kl">Células activas</div><div class="kd dup">meta: 10</div></div>
+      <div class="kc"><div class="kn" id="k-miem">0</div><div class="kl">Miembros totales</div><div class="kd dup">red ciudadana</div></div>
+      <div class="kc"><div class="kn" id="k-hog">0</div><div class="kl">Hogares contactados</div><div class="kd dup">acumulado</div></div>
+      <div class="kc"><div class="kn" id="k-dias">—</div><div class="kl">Días para elecciones</div><div class="kd dn" id="k-dias-lbl">configura la fecha</div></div>
+    </div>
+    <div class="tcol">
+      <div class="card"><div class="ct">Progreso hacia metas</div>
+        <div class="pr"><div class="pl"><span>Miembros (meta 100)</span><span id="pp1">0%</span></div><div class="pbar"><div class="pf" id="pf1" style="background:var(--p2)"></div></div></div>
+        <div class="pr"><div class="pl"><span>Células (meta 10)</span><span id="pp2">0%</span></div><div class="pbar"><div class="pf" id="pf2" style="background:var(--t)"></div></div></div>
+        <div class="pr"><div class="pl"><span>Hogares (meta 200)</span><span id="pp3">0%</span></div><div class="pbar"><div class="pf" id="pf3" style="background:var(--a)"></div></div></div>
+        <div class="pr"><div class="pl"><span>Tareas completadas</span><span id="pp4">0%</span></div><div class="pbar"><div class="pf" id="pf4" style="background:#F87171"></div></div></div>
       </div>
-      <button class="btn btn-primary btn-sm" onclick="openModal('modal-celula')">+ Nueva célula</button>
+      <div class="card"><div class="ct">Semáforo de células</div>
+        <div class="sg">
+          <div class="sc sv"><div class="sn" id="sem-v">0</div><div class="sl">En meta</div></div>
+          <div class="sc sa"><div class="sn" id="sem-a">0</div><div class="sl">En riesgo</div></div>
+          <div class="sc sr"><div class="sn" id="sem-r">0</div><div class="sl">Inactiva</div></div>
+        </div>
+        <div style="font-size:12px;font-weight:600;color:var(--muted);margin:10px 0 8px">Actividad reciente</div>
+        <div id="act-list"></div>
+      </div>
+    </div>
+    <div class="card"><div class="ct">Resumen por célula</div>
+      <div style="overflow-x:auto"><table class="tbl" id="tbl-res"></table></div>
     </div>
   </div>
-  <div class="content active" style="padding:24px 32px">
-    <div class="kpi-grid">
-      <div class="kpi-card">
-        <div class="kpi-n" id="kpi-celulas">6</div>
-        <div class="kpi-l">Células activas</div>
-        <div class="kpi-delta delta-up">↑ meta: 10</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-n" id="kpi-miembros">54</div>
-        <div class="kpi-l">Miembros totales</div>
-        <div class="kpi-delta delta-up">↑ +12 esta semana</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-n" id="kpi-hogares">138</div>
-        <div class="kpi-l">Hogares contactados</div>
-        <div class="kpi-delta delta-up">↑ esta semana</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-n" id="kpi-dias">23</div>
-        <div class="kpi-l">Días para elecciones</div>
-        <div class="kpi-delta delta-neutral">— cuenta regresiva</div>
+</div>
+
+<!-- CÉLULAS -->
+<div class="pg" id="page-celulas">
+  <div class="ph"><div class="phr">
+    <div><div class="ptitle">Gestión de células</div><div class="psub">Administra cada célula y su avance</div></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap" class="no-print">
+      <button class="btn bg sm" onclick="printPg('celulas')">🖨 Imprimir</button>
+      <button class="btn bp sm" onclick="openMo('mo-cel')">+ Nueva célula</button>
+    </div>
+  </div></div>
+  <div class="pcontent">
+    <div class="print-hdr"><h1>Células Ciudadanas — Gestión de Células</h1><p id="phd2"></p></div>
+    <div class="cg" id="cel-grid"></div>
+  </div>
+</div>
+
+<!-- MIEMBROS -->
+<div class="pg" id="page-miembros">
+  <div class="ph"><div class="phr">
+    <div><div class="ptitle">Directorio de miembros</div><div class="psub">Todos los ciudadanos registrados</div></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap" class="no-print">
+      <button class="btn bg sm" onclick="printPg('miembros')">🖨 Imprimir</button>
+      <button class="btn bp sm" onclick="openMo('mo-miem')">+ Nuevo miembro</button>
+    </div>
+  </div></div>
+  <div class="pcontent">
+    <div class="print-hdr"><h1>Células Ciudadanas — Directorio de Miembros</h1><p id="phd3"></p></div>
+    <div class="card no-print" style="margin-bottom:14px"><div style="display:flex;gap:10px;flex-wrap:wrap">
+      <input type="text" id="srch" placeholder="Buscar nombre o barrio..." oninput="renderMiembros()" style="background:var(--dark3);border:1px solid var(--line);border-radius:10px;padding:9px 14px;color:var(--white);font-size:13px;outline:none;flex:1;min-width:180px;font-family:var(--fb)">
+      <select id="flt-cel" onchange="renderMiembros()" style="background:var(--dark3);border:1px solid var(--line);border-radius:10px;padding:9px 14px;color:var(--white);font-size:13px;outline:none;font-family:var(--fb)"><option value="">Todas las células</option></select>
+      <select id="flt-rol" onchange="renderMiembros()" style="background:var(--dark3);border:1px solid var(--line);border-radius:10px;padding:9px 14px;color:var(--white);font-size:13px;outline:none;font-family:var(--fb)"><option value="">Todos los roles</option><option>Líder</option><option>Vocero</option><option>Secretario</option><option>Veedor</option><option>Miembro</option></select>
+    </div></div>
+    <div class="card" id="miem-list"></div>
+  </div>
+</div>
+
+<!-- TAREAS -->
+<div class="pg" id="page-tareas">
+  <div class="ph"><div class="phr">
+    <div><div class="ptitle">Tareas semanales</div><div class="psub">Seguimiento de compromisos por célula</div></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap" class="no-print">
+      <button class="btn bg sm" onclick="printPg('tareas')">🖨 Imprimir</button>
+      <button class="btn bp sm" onclick="openMo('mo-tar')">+ Nueva tarea</button>
+    </div>
+  </div></div>
+  <div class="pcontent">
+    <div class="print-hdr"><h1>Células Ciudadanas — Tareas Semanales</h1><p id="phd4"></p></div>
+    <div class="tabs no-print" id="tar-tabs"></div>
+    <div id="tar-content"></div>
+  </div>
+</div>
+
+<!-- REPORTES -->
+<div class="pg" id="page-reportes">
+  <div class="ph"><div class="phr">
+    <div><div class="ptitle">Reportes de avance</div><div class="psub">Informe semanal completo de la red</div></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap" class="no-print">
+      <button class="btn bg sm" onclick="printPg('reportes')">🖨 Imprimir informe</button>
+      <button class="btn bt sm" onclick="copyReporte()">📋 Copiar para WhatsApp</button>
+    </div>
+  </div></div>
+  <div class="pcontent">
+    <div class="print-hdr"><h1>Células Ciudadanas — Informe de Avance</h1><p id="phd5"></p></div>
+    <div id="rep-content"></div>
+  </div>
+</div>
+
+<!-- MENSAJES -->
+<div class="pg" id="page-mensajes">
+  <div class="ph"><div class="phr">
+    <div><div class="ptitle">Mensajes para WhatsApp</div><div class="psub">Listos para copiar y enviar</div></div>
+    <button class="btn bg sm no-print" onclick="printPg('mensajes')">🖨 Imprimir</button>
+  </div></div>
+  <div class="pcontent">
+    <div class="print-hdr"><h1>Células Ciudadanas — Mensajes WhatsApp</h1><p id="phd6"></p></div>
+    <div id="msg-content"></div>
+  </div>
+</div>
+
+<!-- BACKUP -->
+<div class="pg" id="page-backup">
+  <div class="ph"><div><div class="ptitle">Backup y recuperación</div><div class="psub">Exporta, importa y gestiona tus datos con seguridad</div></div></div>
+  <div class="pcontent">
+    <div class="card" style="margin-bottom:14px">
+      <div class="ct">Estado del almacenamiento local</div>
+      <div style="background:var(--dark3);border-radius:10px;padding:14px 16px">
+        <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:8px">
+          <span>Datos guardados en este navegador</span>
+          <span id="st-size" style="color:var(--white);font-weight:600">—</span>
+        </div>
+        <div class="pbar" style="margin-bottom:6px"><div class="pf" id="st-bar" style="width:0%;background:var(--p2)"></div></div>
+        <div style="font-size:11px;color:var(--muted)" id="st-det">—</div>
       </div>
     </div>
-
-    <div class="two-col">
-      <div class="card">
-        <div class="card-title">Progreso hacia metas</div>
-        <div class="progress-row">
-          <div class="progress-label"><span>Miembros (meta 100)</span><span id="pm">54%</span></div>
-          <div class="progress-bar"><div class="progress-fill" id="pf1" style="width:54%;background:var(--p2)"></div></div>
-        </div>
-        <div class="progress-row">
-          <div class="progress-label"><span>Células (meta 10)</span><span>60%</span></div>
-          <div class="progress-bar"><div class="progress-fill" style="width:60%;background:var(--t)"></div></div>
-        </div>
-        <div class="progress-row">
-          <div class="progress-label"><span>Hogares semana (meta 200)</span><span>69%</span></div>
-          <div class="progress-bar"><div class="progress-fill" style="width:69%;background:var(--a)"></div></div>
-        </div>
-        <div class="progress-row">
-          <div class="progress-label"><span>Tareas completadas</span><span id="pt-pct">72%</span></div>
-          <div class="progress-bar"><div class="progress-fill" id="pf4" style="width:72%;background:#F87171"></div></div>
-        </div>
+    <div class="bkg">
+      <div class="bkc">
+        <div class="bki" style="background:rgba(74,63,212,.2)"><svg width="20" height="20" viewBox="0 0 20 20" fill="#A5B4FC"><path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"/></svg></div>
+        <div class="bkt">Exportar backup</div>
+        <div class="bkd">Descarga un .json con todos los datos: células, miembros, tareas. Guárdalo en lugar seguro.</div>
+        <button class="btn bp sm" onclick="exportBk()">⬇ Descargar .json</button>
       </div>
-
-      <div class="card">
-        <div class="card-title">Semáforo de células</div>
-        <div class="semaforo-grid">
-          <div class="sem-card sem-verde"><div class="sem-n" id="sem-v">4</div><div class="sem-l">En meta</div></div>
-          <div class="sem-card sem-amarillo"><div class="sem-n" id="sem-a">1</div><div class="sem-l">En riesgo</div></div>
-          <div class="sem-card sem-rojo"><div class="sem-n" id="sem-r">1</div><div class="sem-l">Inactiva</div></div>
-        </div>
-        <div style="margin-top:14px">
-          <div class="card-title" style="font-size:12px;margin-bottom:10px">Actividad reciente</div>
-          <div id="actividad-list"></div>
-        </div>
+      <div class="bkc">
+        <div class="bki" style="background:rgba(12,138,96,.2)"><svg width="20" height="20" viewBox="0 0 20 20" fill="#6EE7B7"><path fill-rule="evenodd" d="M3 3a1 1 0 011 1v12a1 1 0 11-2 0V4a1 1 0 011-1zm7.707 3.293a1 1 0 010 1.414L9.414 9H17a1 1 0 110 2H9.414l1.293 1.293a1 1 0 01-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></div>
+        <div class="bkt">Restaurar backup</div>
+        <div class="bkd">Importa un .json exportado. Se hará backup automático antes de reemplazar los datos actuales.</div>
+        <label class="btn bt sm" style="cursor:pointer">⬆ Seleccionar .json<input type="file" accept=".json" id="file-import" onchange="importBk(this)" style="display:none"></label>
+      </div>
+      <div class="bkc">
+        <div class="bki" style="background:rgba(184,104,10,.2)"><svg width="20" height="20" viewBox="0 0 20 20" fill="#FCD34D"><path fill-rule="evenodd" d="M5 4v3H4a2 2 0 00-2 2v3a2 2 0 002 2h1v2a2 2 0 002 2h6a2 2 0 002-2v-2h1a2 2 0 002-2V9a2 2 0 00-2-2h-1V4a2 2 0 00-2-2H7a2 2 0 00-2 2zm8 0v3H7V4h6zm-5 9v-2h4v2H8z" clip-rule="evenodd"/></svg></div>
+        <div class="bkt">Imprimir informe completo</div>
+        <div class="bkd">Genera un informe impreso con células, miembros, tareas y progreso para reuniones de coordinadores.</div>
+        <button class="btn bam sm" onclick="printAll()">🖨 Imprimir todo</button>
+      </div>
+      <div class="bkc">
+        <div class="bki" style="background:rgba(201,59,28,.2)"><svg width="20" height="20" viewBox="0 0 20 20" fill="#FCA5A5"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"/></svg></div>
+        <div class="bkt">Borrar todos los datos</div>
+        <div class="bkd">Elimina todo del navegador. Se descargará un backup automático antes. No se puede deshacer.</div>
+        <button class="btn bd sm" onclick="clearAll()">🗑 Borrar datos</button>
       </div>
     </div>
-
     <div class="card">
-      <div class="card-title">Resumen por célula</div>
-      <div style="overflow-x:auto">
-        <table style="width:100%;border-collapse:collapse;font-size:13px">
-          <thead>
-            <tr style="border-bottom:1px solid var(--line)">
-              <th style="text-align:left;padding:8px 10px;color:var(--muted);font-weight:500;font-size:11px">Célula</th>
-              <th style="text-align:center;padding:8px 10px;color:var(--muted);font-weight:500;font-size:11px">Miembros</th>
-              <th style="text-align:center;padding:8px 10px;color:var(--muted);font-weight:500;font-size:11px">Hogares</th>
-              <th style="text-align:center;padding:8px 10px;color:var(--muted);font-weight:500;font-size:11px">Tareas</th>
-              <th style="text-align:center;padding:8px 10px;color:var(--muted);font-weight:500;font-size:11px">Estado</th>
-            </tr>
-          </thead>
-          <tbody id="tabla-resumen"></tbody>
-        </table>
+      <div class="ct">Configuración</div>
+      <div style="display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap;margin-bottom:16px">
+        <div class="fi" style="margin:0;flex:1;min-width:200px">
+          <label>Fecha de elecciones</label>
+          <input type="date" id="cfg-fecha" onchange="saveCfg()" style="background:var(--dark3);border:1px solid var(--line);border-radius:10px;padding:10px 14px;color:var(--white);font-family:var(--fb);font-size:14px;outline:none;width:100%">
+        </div>
+        <div style="text-align:center;padding:14px 20px;background:var(--dark3);border-radius:12px;min-width:110px">
+          <div style="font-family:var(--fs);font-size:24px;font-weight:800;color:var(--white)" id="dias-rest">—</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:2px">días restantes</div>
+        </div>
+      </div>
+      <div class="fi" style="margin:0">
+        <label>Mi número WhatsApp coordinador</label>
+        <input type="text" id="cfg-wa" placeholder="Ej: 573117700431" oninput="saveCfg()" style="background:var(--dark3);border:1px solid var(--line);border-radius:10px;padding:10px 14px;color:var(--white);font-family:var(--fb);font-size:14px;outline:none;max-width:280px">
+        <div style="font-size:11px;color:var(--muted);margin-top:5px">Formato: 57 + número (sin +, sin espacios). Ej: 573117700431</div>
       </div>
     </div>
+    <div class="card"><div class="ct">Historial de backups</div><div id="bk-hist"></div></div>
   </div>
-</div>
-
-<!-- ══ CÉLULAS ══ -->
-<div class="content" id="page-celulas">
-  <div class="page-header">
-    <div class="header-row">
-      <div>
-        <div class="page-title">Gestión de células</div>
-        <div class="page-sub">Administra cada célula, sus miembros y su avance</div>
-      </div>
-      <button class="btn btn-primary btn-sm" onclick="openModal('modal-celula')">+ Nueva célula</button>
-    </div>
-  </div>
-  <div style="padding:24px 32px">
-    <div class="celulas-grid" id="celulas-grid"></div>
-  </div>
-</div>
-
-<!-- ══ MIEMBROS ══ -->
-<div class="content" id="page-miembros">
-  <div class="page-header">
-    <div class="header-row">
-      <div>
-        <div class="page-title">Directorio de miembros</div>
-        <div class="page-sub">Todos los ciudadanos registrados en la red</div>
-      </div>
-      <button class="btn btn-primary btn-sm" onclick="openModal('modal-miembro')">+ Nuevo miembro</button>
-    </div>
-  </div>
-  <div style="padding:24px 32px">
-    <div class="card">
-      <div style="display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap">
-        <input type="text" id="search-miembro" placeholder="Buscar por nombre o barrio..." oninput="renderMiembros()" style="background:var(--dark3);border:1px solid var(--line);border-radius:10px;padding:9px 14px;color:var(--white);font-size:13px;outline:none;flex:1;min-width:200px;font-family:var(--fb)">
-        <select id="filter-celula" onchange="renderMiembros()" style="background:var(--dark3);border:1px solid var(--line);border-radius:10px;padding:9px 14px;color:var(--white);font-size:13px;outline:none;font-family:var(--fb)">
-          <option value="">Todas las células</option>
-        </select>
-        <select id="filter-rol" onchange="renderMiembros()" style="background:var(--dark3);border:1px solid var(--line);border-radius:10px;padding:9px 14px;color:var(--white);font-size:13px;outline:none;font-family:var(--fb)">
-          <option value="">Todos los roles</option>
-          <option>Líder</option><option>Vocero</option><option>Secretario</option><option>Veedor</option><option>Miembro</option>
-        </select>
-      </div>
-      <div id="miembros-list"></div>
-    </div>
-  </div>
-</div>
-
-<!-- ══ TAREAS ══ -->
-<div class="content" id="page-tareas">
-  <div class="page-header">
-    <div class="header-row">
-      <div>
-        <div class="page-title">Tareas semanales</div>
-        <div class="page-sub">Seguimiento de compromisos por célula</div>
-      </div>
-      <button class="btn btn-primary btn-sm" onclick="openModal('modal-tarea')">+ Nueva tarea</button>
-    </div>
-  </div>
-  <div style="padding:24px 32px">
-    <div class="tabs" id="tareas-tabs"></div>
-    <div id="tareas-content"></div>
-  </div>
-</div>
-
-<!-- ══ REPORTES ══ -->
-<div class="content" id="page-reportes">
-  <div class="page-header">
-    <div>
-      <div class="page-title">Reportes de avance</div>
-      <div class="page-sub">Reporte semanal automático por coordinador zonal</div>
-    </div>
-  </div>
-  <div style="padding:24px 32px">
-    <div id="reportes-content"></div>
-  </div>
-</div>
-
-<!-- ══ MENSAJES ══ -->
-<div class="content" id="page-mensajes">
-  <div class="page-header">
-    <div>
-      <div class="page-title">Mensajes para WhatsApp</div>
-      <div class="page-sub">Mensajes listos para copiar y enviar a tus grupos</div>
-    </div>
-  </div>
-  <div style="padding:24px 32px" id="mensajes-content"></div>
 </div>
 
 </main>
 </div>
 
-<!-- ══ MODALES ══ -->
-<div class="modal-overlay" id="modal-celula">
-  <div class="modal">
-    <div class="modal-title">Nueva célula ciudadana</div>
-    <div class="field"><label>Nombre del barrio / sector</label><input type="text" id="nc-nombre" placeholder="Ej: Barrio La Esperanza"></div>
-    <div class="field"><label>Zona o municipio</label><input type="text" id="nc-zona" placeholder="Ej: Centro, Caucasia"></div>
-    <div class="field"><label>Nombre del líder</label><input type="text" id="nc-lider" placeholder="Nombre completo"></div>
-    <div class="field"><label>Celular del líder</label><input type="text" id="nc-cel" placeholder="300 000 0000"></div>
-    <div class="modal-btns">
-      <button class="btn btn-primary" onclick="addCelula()">Crear célula</button>
-      <button class="btn btn-ghost" onclick="closeModal('modal-celula')">Cancelar</button>
+<!-- MODALES -->
+<div class="mo" id="mo-cel">
+  <div class="md">
+    <div class="mtitle">Nueva célula ciudadana</div>
+    <div class="fi"><label>Nombre del barrio / sector</label><input type="text" id="nc-nom" placeholder="Ej: Barrio La Esperanza"></div>
+    <div class="fi"><label>Zona o municipio</label><input type="text" id="nc-zon" placeholder="Ej: Caucasia, Antioquia"></div>
+    <div class="fi"><label>Nombre del líder</label><input type="text" id="nc-lid" placeholder="Nombre completo"></div>
+    <div class="fi"><label>Celular del líder (WhatsApp)</label><input type="text" id="nc-cel" placeholder="Ej: 3117700431"></div>
+    <div class="fi"><label>Hogares contactados (inicial)</label><input type="number" id="nc-hog" value="0" min="0" placeholder="0"></div>
+    <div class="mbtns">
+      <button class="btn bp" onclick="addCelula()">Crear célula</button>
+      <button class="btn bg" onclick="closeMo('mo-cel')">Cancelar</button>
     </div>
   </div>
 </div>
 
-<div class="modal-overlay" id="modal-miembro">
-  <div class="modal">
-    <div class="modal-title">Nuevo miembro</div>
-    <div class="field"><label>Nombre completo</label><input type="text" id="nm-nombre" placeholder="Nombre y apellido"></div>
-    <div class="field"><label>Barrio</label><input type="text" id="nm-barrio" placeholder="Barrio donde vive"></div>
-    <div class="field"><label>Celular</label><input type="text" id="nm-cel" placeholder="300 000 0000"></div>
-    <div class="field"><label>Célula</label>
-      <select id="nm-celula"><option value="">Seleccionar célula...</option></select>
-    </div>
-    <div class="field"><label>Rol</label>
-      <select id="nm-rol">
-        <option>Miembro</option><option>Líder</option><option>Vocero</option><option>Secretario</option><option>Veedor</option>
-      </select>
-    </div>
-    <div class="modal-btns">
-      <button class="btn btn-primary" onclick="addMiembro()">Registrar</button>
-      <button class="btn btn-ghost" onclick="closeModal('modal-miembro')">Cancelar</button>
+<div class="mo" id="mo-miem">
+  <div class="md">
+    <div class="mtitle">Nuevo miembro</div>
+    <div class="fi"><label>Nombre completo</label><input type="text" id="nm-nom" placeholder="Nombre y apellido"></div>
+    <div class="fi"><label>Barrio</label><input type="text" id="nm-bar" placeholder="Barrio donde vive"></div>
+    <div class="fi"><label>Celular (WhatsApp)</label><input type="text" id="nm-cel" placeholder="Ej: 3117700431"></div>
+    <div class="fi"><label>Célula</label><select id="nm-cel2"><option value="">Seleccionar célula...</option></select></div>
+    <div class="fi"><label>Rol</label><select id="nm-rol"><option>Miembro</option><option>Líder</option><option>Vocero</option><option>Secretario</option><option>Veedor</option></select></div>
+    <div class="mbtns">
+      <button class="btn bp" onclick="addMiembro()">Registrar</button>
+      <button class="btn bg" onclick="closeMo('mo-miem')">Cancelar</button>
     </div>
   </div>
 </div>
 
-<div class="modal-overlay" id="modal-tarea">
-  <div class="modal">
-    <div class="modal-title">Nueva tarea</div>
-    <div class="field"><label>Descripción de la tarea</label><input type="text" id="nt-desc" placeholder="Ej: Visitar 20 hogares del sector norte"></div>
-    <div class="field"><label>Célula asignada</label>
-      <select id="nt-celula"><option value="">Todas las células</option></select>
+<div class="mo" id="mo-tar">
+  <div class="md">
+    <div class="mtitle">Nueva tarea</div>
+    <div class="fi"><label>Descripción de la tarea</label><input type="text" id="nt-desc" placeholder="Ej: Visitar 20 hogares del sector norte"></div>
+    <div class="fi"><label>Célula asignada</label><select id="nt-cel"><option value="0">Todas las células</option></select></div>
+    <div class="fi"><label>Prioridad</label><select id="nt-prio"><option>Alta</option><option>Media</option><option>Baja</option></select></div>
+    <div class="mbtns">
+      <button class="btn bp" onclick="addTarea()">Agregar tarea</button>
+      <button class="btn bg" onclick="closeMo('mo-tar')">Cancelar</button>
     </div>
-    <div class="field"><label>Prioridad</label>
-      <select id="nt-prio"><option>Alta</option><option>Media</option><option>Baja</option></select>
-    </div>
-    <div class="modal-btns">
-      <button class="btn btn-primary" onclick="addTarea()">Agregar tarea</button>
-      <button class="btn btn-ghost" onclick="closeModal('modal-tarea')">Cancelar</button>
+  </div>
+</div>
+
+<div class="mo" id="mo-confirm">
+  <div class="md" style="max-width:380px">
+    <div class="mtitle" id="conf-title">¿Estás seguro?</div>
+    <p style="font-size:14px;color:var(--muted);margin-bottom:20px;line-height:1.6" id="conf-msg"></p>
+    <div class="mbtns">
+      <button class="btn bd" id="conf-ok">Confirmar</button>
+      <button class="btn bg" onclick="closeMo('mo-confirm')">Cancelar</button>
     </div>
   </div>
 </div>
@@ -464,357 +484,623 @@ body{background:var(--dark);color:var(--white);font-family:var(--fb);min-height:
 <div class="toast" id="toast"></div>
 
 <script>
-// ═══════════════════════════ ESTADO ═══════════════════════════
-const state = {
-  celulas: [
-    {id:1,nombre:'Barrio El Centro',zona:'Caucasia',lider:'Pedro Ramírez',cel:'310 111 2233',miembros:11,hogares:28,estado:'activa'},
-    {id:2,nombre:'Barrio La Esperanza',zona:'Caucasia',lider:'María García',cel:'311 222 3344',miembros:9,hogares:22,estado:'activa'},
-    {id:3,nombre:'Barrio El Porvenir',zona:'Caucasia',lider:'Carlos López',cel:'312 333 4455',miembros:10,hogares:25,estado:'activa'},
-    {id:4,nombre:'Barrio San José',zona:'Caucasia',lider:'Ana Torres',cel:'313 444 5566',miembros:8,hogares:20,estado:'activa'},
-    {id:5,nombre:'Barrio La Gloria',zona:'Caucasia',lider:'Luis Martínez',cel:'314 555 6677',miembros:6,hogares:12,estado:'riesgo'},
-    {id:6,nombre:'Barrio Villa Nueva',zona:'Caucasia',lider:'Rosa Jiménez',cel:'315 666 7788',miembros:10,hogares:31,estado:'activa'},
+// ════════════════════════════════════
+// ESTADO Y PERSISTENCIA
+// ════════════════════════════════════
+const LSK = 'vph_celulas_v5';
+const LSH = 'vph_bk_hist_v5';
+
+const DEMO = {
+  celulas:[
+    {id:1,nombre:'Barrio El Centro',zona:'Caucasia',lider:'Pedro Ramírez',cel:'3101112233',hogares:28,estado:'activa'},
+    {id:2,nombre:'Barrio La Esperanza',zona:'Caucasia',lider:'María García',cel:'3112223344',hogares:22,estado:'activa'},
+    {id:3,nombre:'Barrio El Porvenir',zona:'Caucasia',lider:'Carlos López',cel:'3123334455',hogares:25,estado:'activa'},
+    {id:4,nombre:'Barrio San José',zona:'Caucasia',lider:'Ana Torres',cel:'3134445566',hogares:20,estado:'activa'},
+    {id:5,nombre:'Barrio La Gloria',zona:'Caucasia',lider:'Luis Martínez',cel:'3145556677',hogares:12,estado:'riesgo'},
+    {id:6,nombre:'Barrio Villa Nueva',zona:'Caucasia',lider:'Rosa Jiménez',cel:'3156667788',hogares:31,estado:'activa'},
   ],
-  miembros: [
-    {id:1,nombre:'Pedro Ramírez',barrio:'El Centro',cel:'310 111 2233',celula:1,rol:'Líder'},
-    {id:2,nombre:'María García',barrio:'La Esperanza',cel:'311 222 3344',celula:2,rol:'Líder'},
-    {id:3,nombre:'Carlos López',barrio:'El Porvenir',cel:'312 333 4455',celula:3,rol:'Líder'},
-    {id:4,nombre:'Ana Torres',barrio:'San José',cel:'313 444 5566',celula:4,rol:'Líder'},
-    {id:5,nombre:'Luis Martínez',barrio:'La Gloria',cel:'314 555 6677',celula:5,rol:'Líder'},
-    {id:6,nombre:'Rosa Jiménez',barrio:'Villa Nueva',cel:'315 666 7788',celula:6,rol:'Líder'},
-    {id:7,nombre:'Jorge Herrera',barrio:'El Centro',cel:'316 777 8899',celula:1,rol:'Vocero'},
-    {id:8,nombre:'Claudia Reyes',barrio:'La Esperanza',cel:'317 888 9900',celula:2,rol:'Secretario'},
-    {id:9,nombre:'Andrés Morales',barrio:'El Porvenir',cel:'318 999 0011',celula:3,rol:'Veedor'},
-    {id:10,nombre:'Patricia Soto',barrio:'San José',cel:'319 000 1122',celula:4,rol:'Miembro'},
+  miembros:[
+    {id:1,nombre:'Pedro Ramírez',barrio:'El Centro',cel:'3101112233',celula:1,rol:'Líder'},
+    {id:2,nombre:'María García',barrio:'La Esperanza',cel:'3112223344',celula:2,rol:'Líder'},
+    {id:3,nombre:'Carlos López',barrio:'El Porvenir',cel:'3123334455',celula:3,rol:'Líder'},
+    {id:4,nombre:'Ana Torres',barrio:'San José',cel:'3134445566',celula:4,rol:'Líder'},
+    {id:5,nombre:'Luis Martínez',barrio:'La Gloria',cel:'3145556677',celula:5,rol:'Líder'},
+    {id:6,nombre:'Rosa Jiménez',barrio:'Villa Nueva',cel:'3156667788',celula:6,rol:'Líder'},
+    {id:7,nombre:'Jorge Herrera',barrio:'El Centro',cel:'3167778899',celula:1,rol:'Vocero'},
+    {id:8,nombre:'Claudia Reyes',barrio:'La Esperanza',cel:'3178889900',celula:2,rol:'Secretario'},
+    {id:9,nombre:'Andrés Morales',barrio:'El Porvenir',cel:'3189990011',celula:3,rol:'Veedor'},
+    {id:10,nombre:'Patricia Soto',barrio:'San José',cel:'3190001122',celula:4,rol:'Miembro'},
   ],
-  tareas: [
-    {id:1,desc:'Visitar 20 hogares del sector norte',celula:0,prio:'Alta',done:true},
-    {id:2,desc:'Crear grupo de WhatsApp con nuevos miembros',celula:1,prio:'Alta',done:true},
+  tareas:[
+    {id:1,desc:'Crear grupos de WhatsApp con todos los miembros',celula:0,prio:'Alta',done:true},
+    {id:2,desc:'Asignar roles en cada célula',celula:0,prio:'Alta',done:true},
     {id:3,desc:'Publicar 3 contenidos en redes esta semana',celula:0,prio:'Media',done:false},
     {id:4,desc:'Llevar acta de la reunión semanal',celula:2,prio:'Alta',done:true},
     {id:5,desc:'Confirmar asistencia al taller #2',celula:0,prio:'Media',done:false},
-    {id:6,desc:'Grabar testimonio en video de un miembro',celula:3,prio:'Baja',done:false},
+    {id:6,desc:'Grabar testimonio de un miembro en video',celula:3,prio:'Baja',done:false},
     {id:7,desc:'Enviar reporte semanal al coordinador zonal',celula:0,prio:'Alta',done:false},
     {id:8,desc:'Identificar 2 nuevos posibles miembros',celula:4,prio:'Media',done:true},
   ],
-  actividad: [
-    {texto:'Pedro Ramírez completó "Visitar 20 hogares"',tiempo:'Hace 2h',color:'#4ADE80'},
-    {texto:'Nuevo miembro: Claudia Reyes — Barrio La Esperanza',tiempo:'Hace 3h',color:'#A5B4FC'},
-    {texto:'Célula Villa Nueva supera meta de hogares',tiempo:'Hace 5h',color:'#FBB024'},
-    {texto:'Acta de reunión registrada — Barrio El Centro',tiempo:'Ayer',color:'#4ADE80'},
-    {texto:'Alerta: Célula La Gloria por debajo de meta',tiempo:'Ayer',color:'#F87171'},
-  ]
+  actividad:[
+    {t:'Pedro Ramírez completó "Crear grupos de WhatsApp"',h:'Hace 2h',c:'#4ADE80'},
+    {t:'Nuevo miembro: Claudia Reyes — La Esperanza',h:'Hace 3h',c:'#A5B4FC'},
+    {t:'Célula Villa Nueva supera meta de hogares',h:'Hace 5h',c:'#FBB024'},
+    {t:'Acta registrada — Barrio El Centro',h:'Ayer',c:'#4ADE80'},
+    {t:'Alerta: Célula La Gloria por debajo de meta',h:'Ayer',c:'#F87171'},
+  ],
+  cfg:{eleccion:'',wa:'573117700431'}
 };
 
-const avatarColors = ['#4A3FD4','#0C8A60','#C93B1C','#B8680A','#7C3AED','#0891B2'];
-const getInitials = n => n.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+function loadS(){
+  try{const r=localStorage.getItem(LSK);if(r)return JSON.parse(r);}catch(e){}
+  return JSON.parse(JSON.stringify(DEMO));
+}
+let S = loadS();
 
-// ═══════════════════════════ NAV ═══════════════════════════
-function goTo(page, el){
-  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
-  document.querySelectorAll('.content').forEach(c=>{c.classList.remove('active');c.style.display='none'});
-  if(el) el.classList.add('active');
-  const p = document.getElementById('page-'+page);
-  if(p){p.classList.add('active');p.style.display='block'}
-  if(page==='celulas') renderCelulas();
-  if(page==='miembros') renderMiembros();
-  if(page==='tareas') renderTareas();
-  if(page==='reportes') renderReportes();
-  if(page==='mensajes') renderMensajes();
-  if(page==='dashboard') renderDashboard();
+function saveS(silent){
+  try{
+    localStorage.setItem(LSK,JSON.stringify(S));
+    const d=document.getElementById('sdot');
+    const l=document.getElementById('slbl');
+    if(!silent&&d&&l){
+      d.classList.add('saving');l.textContent='Guardando...';
+      setTimeout(()=>{d.classList.remove('saving');l.textContent='Guardado';},900);
+    }
+  }catch(e){toast('Error al guardar','terr');}
 }
 
-// ═══════════════════════════ MODALES ═══════════════════════════
-function openModal(id){
-  populateSelects();
-  document.getElementById(id).classList.add('open');
+function saveCfg(){
+  S.cfg.eleccion=document.getElementById('cfg-fecha').value||'';
+  S.cfg.wa=document.getElementById('cfg-wa').value.trim()||'573117700431';
+  saveS(true);
+  updateDias();
 }
-function closeModal(id){ document.getElementById(id).classList.remove('open'); }
-document.querySelectorAll('.modal-overlay').forEach(m=>{
-  m.addEventListener('click',e=>{ if(e.target===m) m.classList.remove('open'); });
-});
 
-function populateSelects(){
-  ['nm-celula','nt-celula','filter-celula'].forEach(sid=>{
-    const sel = document.getElementById(sid);
-    if(!sel) return;
-    const isFilter = sid==='filter-celula';
-    sel.innerHTML = isFilter ? '<option value="">Todas las células</option>' : '<option value="">Seleccionar célula...</option>';
-    state.celulas.forEach(c=>{
-      const o = document.createElement('option');
-      o.value=c.id; o.textContent=c.nombre;
-      sel.appendChild(o);
+function updateDias(){
+  const fe=document.getElementById('cfg-fecha');
+  const dr=document.getElementById('dias-rest');
+  const k=document.getElementById('k-dias');
+  const kl=document.getElementById('k-dias-lbl');
+  if(S.cfg&&S.cfg.eleccion){
+    if(fe)fe.value=S.cfg.eleccion;
+    const diff=Math.ceil((new Date(S.cfg.eleccion+'T00:00:00')-new Date())/864e5);
+    const v=diff>0?String(diff):diff===0?'¡Hoy!':'Pasada';
+    if(k)k.textContent=v;
+    if(dr)dr.textContent=v;
+    if(kl)kl.textContent=diff>0?'días restantes':'—';
+  }
+  const wa=document.getElementById('cfg-wa');
+  if(wa&&S.cfg&&S.cfg.wa)wa.value=S.cfg.wa;
+}
+
+// ════════════════════════════════════
+// WHATSAPP HELPER
+// ════════════════════════════════════
+function fmtWA(n){
+  if(!n)return'';
+  n=String(n).replace(/\D/g,'');
+  if(n.startsWith('0'))n=n.slice(1);
+  if(n.length===10)n='57'+n;
+  return n;
+}
+
+const WA_ICON='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.553 4.116 1.523 5.848L.057 23.617a.5.5 0 00.606.61l5.913-1.434A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.96 0-3.792-.54-5.355-1.476l-.383-.227-3.987.966.998-3.879-.249-.4A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>';
+
+function waLink(num,label){
+  const n=fmtWA(num);
+  if(!n||n.length<10)return`<span style="font-size:11px;color:var(--muted)">${label||num||'—'}</span>`;
+  const msg=encodeURIComponent('Hola, me contacto desde la app Células Ciudadanas.');
+  return`<a href="https://wa.me/${n}?text=${msg}" target="_blank" class="wa">${WA_ICON}${label||num}</a>`;
+}
+
+// ════════════════════════════════════
+// BACKUP
+// ════════════════════════════════════
+function exportBk(silent){
+  const d={version:'5.0',exportedAt:new Date().toISOString(),app:'Células Ciudadanas',data:S};
+  const blob=new Blob([JSON.stringify(d,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  const ts=new Date().toISOString().slice(0,16).replace('T','_').replace(':','-');
+  a.href=url;a.download=`backup_celulas_${ts}.json`;a.click();URL.revokeObjectURL(url);
+  if(!silent){addBkH('Backup manual exportado');toast('Backup descargado ✓','tok2');}
+}
+
+function importBk(inp){
+  const f=inp.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=e=>{
+    try{
+      const p=JSON.parse(e.target.result);
+      const d=p.data||p;
+      if(!d.celulas||!d.miembros){toast('Archivo no válido','terr');return;}
+      confirm2('¿Restaurar este backup?',
+        `Se importarán ${d.celulas.length} células y ${d.miembros.length} miembros. Los datos actuales serán reemplazados. Se hará backup automático antes.`,
+        ()=>{
+          exportBk(true);
+          Object.assign(S,d);
+          if(!S.cfg)S.cfg={eleccion:'',wa:'573117700431'};
+          saveS();
+          addBkH('Backup importado desde archivo');
+          toast('Datos restaurados ✓','tok2');
+          renderDB();updateSt();renderBkH();updateDias();
+        });
+    }catch(ex){toast('Error al leer el archivo','terr');}
+    inp.value='';
+  };
+  r.readAsText(f);
+}
+
+function clearAll(){
+  confirm2('¿Borrar todos los datos?',
+    'Se descargará un backup automático antes. Esta acción elimina TODO y no se puede deshacer.',
+    ()=>{
+      exportBk(true);
+      localStorage.removeItem(LSK);localStorage.removeItem(LSH);
+      S=JSON.parse(JSON.stringify(DEMO));
+      saveS();
+      toast('Datos borrados. Backup descargado.','tok2');
+      renderDB();updateSt();renderBkH();
     });
+}
+
+function addBkH(label){
+  try{
+    let h=JSON.parse(localStorage.getItem(LSH)||'[]');
+    h.unshift({label,date:new Date().toLocaleString('es-CO'),cells:S.celulas.length,members:S.miembros.length});
+    if(h.length>12)h=h.slice(0,12);
+    localStorage.setItem(LSH,JSON.stringify(h));
+  }catch(e){}
+}
+
+function renderBkH(){
+  const el=document.getElementById('bk-hist');if(!el)return;
+  try{
+    const h=JSON.parse(localStorage.getItem(LSH)||'[]');
+    if(!h.length){el.innerHTML='<div style="font-size:13px;color:var(--muted);padding:6px 0">Aún no hay backups registrados.</div>';return;}
+    el.innerHTML=h.map(b=>`
+      <div style="display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid var(--line)">
+        <svg width="13" height="13" viewBox="0 0 20 20" fill="var(--p2)"><path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+        <div style="flex:1">
+          <div style="font-size:13px;color:var(--white)">${b.label}</div>
+          <div style="font-size:11px;color:var(--muted)">${b.date} · ${b.cells} células · ${b.members} miembros</div>
+        </div>
+      </div>`).join('');
+  }catch(e){}
+}
+
+function updateSt(){
+  try{
+    const raw=localStorage.getItem(LSK)||'';
+    const bytes=new Blob([raw]).size;
+    const kb=(bytes/1024).toFixed(1);
+    const pct=Math.min(100,Math.round(bytes/(5*1024*1024)*100));
+    const sz=document.getElementById('st-size');if(sz)sz.textContent=kb+' KB';
+    const sb=document.getElementById('st-bar');if(sb)sb.style.width=pct+'%';
+    const sd=document.getElementById('st-det');
+    if(sd)sd.textContent=`${S.celulas.length} células · ${S.miembros.length} miembros · ${S.tareas.length} tareas · ${pct}% del límite del navegador`;
+  }catch(e){}
+}
+
+// ════════════════════════════════════
+// IMPRESIÓN
+// ════════════════════════════════════
+function stampDates(){
+  const d=new Date().toLocaleDateString('es-CO',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  for(let i=1;i<=6;i++){const el=document.getElementById('phd'+i);if(el)el.textContent='Generado el '+d;}
+}
+
+function printPg(section){
+  stampDates();
+  // Aseguramos que la página correcta esté visible
+  const pg=document.getElementById('page-'+section);
+  if(pg){
+    // Temporalmente mostramos solo esta página
+    document.querySelectorAll('.pg').forEach(p=>p.style.display='none');
+    pg.style.display='block';
+    window.print();
+    // Restaurar
+    document.querySelectorAll('.pg').forEach(p=>p.style.display='none');
+    pg.style.display='block'; // la activa sigue visible
+    pg.classList.add('active');
+  }else{
+    window.print();
+  }
+  addBkH('Informe impreso: '+section);
+}
+
+function printAll(){
+  stampDates();
+  renderDB();renderCelulas();renderMiembros();renderTareas();renderReportes();
+  // Mostrar todas las secciones imprimibles
+  const sections=['dashboard','celulas','miembros','tareas','reportes'];
+  const prev=document.querySelector('.pg.active');
+  document.querySelectorAll('.pg').forEach(p=>{p.classList.remove('active');p.style.display='none';});
+  sections.forEach(s=>{
+    const el=document.getElementById('page-'+s);
+    if(el){el.style.display='block';}
+  });
+  window.print();
+  // Restaurar
+  document.querySelectorAll('.pg').forEach(p=>p.style.display='none');
+  if(prev){prev.style.display='block';prev.classList.add('active');}
+  addBkH('Informe completo impreso');
+}
+
+// ════════════════════════════════════
+// UI HELPERS
+// ════════════════════════════════════
+const AC=['#4A3FD4','#0C8A60','#C93B1C','#B8680A','#7C3AED','#0891B2'];
+const GI=n=>n.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+
+function toast(msg,type='tok'){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.className='toast show '+type;
+  setTimeout(()=>t.classList.remove('show'),2800);
+}
+
+function goTo(page,el){
+  document.querySelectorAll('.ni').forEach(n=>n.classList.remove('active'));
+  document.querySelectorAll('.pg').forEach(p=>{p.classList.remove('active');p.style.display='none';});
+  if(el)el.classList.add('active');
+  const pg=document.getElementById('page-'+page);
+  if(pg){pg.classList.add('active');pg.style.display='block';}
+  if(page==='dashboard')renderDB();
+  if(page==='celulas')renderCelulas();
+  if(page==='miembros'){popSel();renderMiembros();}
+  if(page==='tareas'){popSel();renderTareas();}
+  if(page==='reportes')renderReportes();
+  if(page==='mensajes')renderMensajes();
+  if(page==='backup'){updateSt();renderBkH();updateDias();}
+}
+
+function openMo(id){popSel();document.getElementById(id).classList.add('open');}
+function closeMo(id){document.getElementById(id).classList.remove('open');}
+document.querySelectorAll('.mo').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open');}));
+
+function confirm2(title,msg,cb){
+  document.getElementById('conf-title').textContent=title;
+  document.getElementById('conf-msg').textContent=msg;
+  document.getElementById('conf-ok').onclick=()=>{closeMo('mo-confirm');cb();};
+  openMo('mo-confirm');
+}
+
+function popSel(){
+  ['nm-cel2','nt-cel','flt-cel'].forEach(sid=>{
+    const sel=document.getElementById(sid);if(!sel)return;
+    const isF=sid==='flt-cel';const isT=sid==='nt-cel';
+    sel.innerHTML=isF?'<option value="">Todas las células</option>':
+                  isT?'<option value="0">Todas las células</option>':
+                  '<option value="">Seleccionar célula...</option>';
+    S.celulas.forEach(c=>{const o=document.createElement('option');o.value=c.id;o.textContent=c.nombre;sel.appendChild(o);});
   });
 }
 
-function toast(msg){
-  const t = document.getElementById('toast');
-  t.textContent = msg; t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2500);
+// ════════════════════════════════════
+// DASHBOARD
+// ════════════════════════════════════
+function renderDB(){
+  const tm=S.miembros.length;
+  const th=S.celulas.reduce((a,c)=>a+c.hogares,0);
+  const td=S.tareas.filter(t=>t.done).length;
+  const tt=S.tareas.length;
+  const pt=tt?Math.round(td/tt*100):0;
+
+  const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
+  set('k-cel',S.celulas.length);set('k-miem',tm);set('k-hog',th);
+  updateDias();
+
+  const pm=Math.min(100,tm);
+  const pc=Math.min(100,Math.round(S.celulas.length/10*100));
+  const ph=Math.min(100,Math.round(th/200*100));
+
+  [['pp1',pm,'pf1'],['pp2',pc,'pf2'],['pp3',ph,'pf3'],['pp4',pt,'pf4']].forEach(([pid,val,fid])=>{
+    const pe=document.getElementById(pid);if(pe)pe.textContent=val+'%';
+    const fe=document.getElementById(fid);if(fe)fe.style.width=val+'%';
+  });
+
+  set('sem-v',S.celulas.filter(c=>c.estado==='activa').length);
+  set('sem-a',S.celulas.filter(c=>c.estado==='riesgo').length);
+  set('sem-r',S.celulas.filter(c=>c.estado==='nueva').length);
+
+  const al=document.getElementById('act-list');
+  if(al)al.innerHTML=S.actividad.slice(0,5).map(a=>`
+    <div class="ai"><div class="adot" style="background:${a.c}"></div>
+    <div><div class="atxt">${a.t}</div><div class="atime">${a.h}</div></div></div>`).join('');
+
+  const tb=document.getElementById('tbl-res');
+  if(tb)tb.innerHTML=`
+    <thead><tr>
+      <th>Célula</th><th>Líder</th>
+      <th style="text-align:center">Miembros</th>
+      <th style="text-align:center">Hogares</th>
+      <th style="text-align:center">Estado</th>
+      <th>WhatsApp</th>
+    </tr></thead>
+    <tbody>${S.celulas.map(c=>`
+      <tr>
+        <td style="font-weight:500;color:var(--white)">${c.nombre}</td>
+        <td style="color:rgba(255,255,255,.8)">${c.lider}</td>
+        <td style="text-align:center;color:var(--white)">${S.miembros.filter(m=>m.celula===c.id).length}</td>
+        <td style="text-align:center;color:var(--white)">${c.hogares}</td>
+        <td style="text-align:center"><span class="cbdg ${c.estado==='activa'?'ba':c.estado==='riesgo'?'br':'bn'}">${c.estado}</span></td>
+        <td>${waLink(c.cel,c.cel)}</td>
+      </tr>`).join('')}</tbody>`;
 }
 
-// ═══════════════════════════ DASHBOARD ═══════════════════════════
-function renderDashboard(){
-  // Actividad
-  const al = document.getElementById('actividad-list');
-  if(al) al.innerHTML = state.actividad.map(a=>`
-    <div class="activity-item">
-      <div class="act-dot" style="background:${a.color}"></div>
-      <div><div class="act-text">${a.texto}</div><div class="act-time">${a.tiempo}</div></div>
-    </div>`).join('');
-
-  // Tabla resumen
-  const tb = document.getElementById('tabla-resumen');
-  if(tb) tb.innerHTML = state.celulas.map(c=>{
-    const meta = c.miembros >= 8;
-    const pct = Math.round(c.miembros/10*100);
-    return `<tr style="border-bottom:1px solid var(--line)">
-      <td style="padding:10px 10px;color:var(--white);font-weight:500">${c.nombre}</td>
-      <td style="padding:10px 10px;text-align:center;color:var(--white)">${c.miembros}</td>
-      <td style="padding:10px 10px;text-align:center;color:var(--white)">${c.hogares}</td>
-      <td style="padding:10px 10px;text-align:center">
-        <div style="height:4px;background:var(--dark3);border-radius:2px;overflow:hidden;width:60px;margin:0 auto">
-          <div style="width:${pct}%;height:100%;background:var(--p2);border-radius:2px"></div>
-        </div>
-      </td>
-      <td style="padding:10px 10px;text-align:center">
-        <span class="cel-badge ${c.estado==='activa'?'badge-activa':c.estado==='riesgo'?'badge-riesgo':'badge-nueva'}">${c.estado}</span>
-      </td>
-    </tr>`;
+// ════════════════════════════════════
+// CÉLULAS
+// ════════════════════════════════════
+function renderCelulas(){
+  const g=document.getElementById('cel-grid');if(!g)return;
+  g.innerHTML=S.celulas.map(c=>{
+    const mc=S.miembros.filter(m=>m.celula===c.id).length;
+    const pct=Math.min(100,Math.round(mc/10*100));
+    return`<div class="cc">
+      <div class="cch">
+        <div class="ccn">${c.nombre}</div>
+        <span class="cbdg ${c.estado==='activa'?'ba':c.estado==='riesgo'?'br':'bn'}">${c.estado}</span>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:3px">${c.zona}</div>
+      <div style="font-size:12px;color:rgba(255,255,255,.75);margin-bottom:4px">Líder: <strong style="color:var(--white)">${c.lider}</strong></div>
+      <div style="margin-bottom:6px">${waLink(c.cel,c.cel)}</div>
+      <div class="cst">
+        <div><div class="cstn">${mc}</div><div class="cstl">Miembros</div></div>
+        <div><div class="cstn">${c.hogares}</div><div class="cstl">Hogares</div></div>
+        <div><div class="cstn">${pct}%</div><div class="cstl">Meta</div></div>
+      </div>
+      <div class="cbar"><div class="cbarf" style="width:${pct}%"></div></div>
+    </div>`;
   }).join('');
 }
 
-// ═══════════════════════════ CÉLULAS ═══════════════════════════
-function renderCelulas(){
-  const g = document.getElementById('celulas-grid');
-  if(!g) return;
-  g.innerHTML = state.celulas.map(c=>`
-    <div class="celula-card" onclick="selectCelula(${c.id})">
-      <div class="cel-header">
-        <div class="cel-name">${c.nombre}</div>
-        <span class="cel-badge ${c.estado==='activa'?'badge-activa':c.estado==='riesgo'?'badge-riesgo':'badge-nueva'}">${c.estado}</span>
-      </div>
-      <div style="font-size:12px;color:var(--muted);margin-bottom:2px">${c.zona}</div>
-      <div style="font-size:12px;color:var(--muted)">Lider: <span style="color:rgba(255,255,255,.75)">${c.lider}</span></div>
-      <div class="cel-stats">
-        <div class="cel-stat"><div class="cel-stat-n">${c.miembros}</div><div class="cel-stat-l">Miembros</div></div>
-        <div class="cel-stat"><div class="cel-stat-n">${c.hogares}</div><div class="cel-stat-l">Hogares</div></div>
-        <div class="cel-stat"><div class="cel-stat-n">${Math.round(c.miembros/10*100)}%</div><div class="cel-stat-l">Meta</div></div>
-      </div>
-      <div class="cel-bar"><div class="cel-bar-fill" style="width:${Math.round(c.miembros/10*100)}%"></div></div>
-    </div>`).join('');
-}
-
-function selectCelula(id){
-  document.querySelectorAll('.celula-card').forEach(c=>c.classList.remove('selected'));
-  event.currentTarget.classList.add('selected');
-  toast('Célula seleccionada');
-}
-
 function addCelula(){
-  const nombre = document.getElementById('nc-nombre').value.trim();
-  const zona   = document.getElementById('nc-zona').value.trim();
-  const lider  = document.getElementById('nc-lider').value.trim();
-  const cel    = document.getElementById('nc-cel').value.trim();
-  if(!nombre||!lider){ toast('Completa nombre y líder'); return; }
-  state.celulas.push({id:Date.now(),nombre,zona,lider,cel,miembros:1,hogares:0,estado:'nueva'});
-  closeModal('modal-celula');
-  toast('¡Célula creada exitosamente!');
-  renderCelulas(); renderDashboard();
-  document.getElementById('kpi-celulas').textContent = state.celulas.length;
-  document.getElementById('sem-v').textContent = state.celulas.filter(c=>c.estado==='activa').length;
+  const n=document.getElementById('nc-nom').value.trim();
+  const z=document.getElementById('nc-zon').value.trim();
+  const l=document.getElementById('nc-lid').value.trim();
+  const c=document.getElementById('nc-cel').value.trim();
+  const h=parseInt(document.getElementById('nc-hog').value)||0;
+  if(!n||!l){toast('Completa nombre del barrio y líder','terr');return;}
+  S.celulas.push({id:Date.now(),nombre:n,zona:z,lider:l,cel:c,hogares:h,estado:'nueva'});
+  S.actividad.unshift({t:`Nueva célula: ${n}`,h:'Ahora',c:'#A5B4FC'});
+  saveS();closeMo('mo-cel');toast('¡Célula creada!','tok2');
+  renderCelulas();renderDB();
+  ['nc-nom','nc-zon','nc-lid','nc-cel'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('nc-hog').value='0';
 }
 
-// ═══════════════════════════ MIEMBROS ═══════════════════════════
+// ════════════════════════════════════
+// MIEMBROS
+// ════════════════════════════════════
 function renderMiembros(){
-  const search = (document.getElementById('search-miembro')?.value||'').toLowerCase();
-  const cFilter= document.getElementById('filter-celula')?.value||'';
-  const rFilter= document.getElementById('filter-rol')?.value||'';
-  populateSelects();
-  const filtered = state.miembros.filter(m=>{
-    const matchS = m.nombre.toLowerCase().includes(search)||m.barrio.toLowerCase().includes(search);
-    const matchC = !cFilter || String(m.celula)===cFilter;
-    const matchR = !rFilter || m.rol===rFilter;
-    return matchS && matchC && matchR;
-  });
-  const list = document.getElementById('miembros-list');
-  if(!list) return;
-  if(!filtered.length){ list.innerHTML='<div style="color:var(--muted);font-size:13px;padding:16px 0">No se encontraron miembros.</div>'; return; }
-  list.innerHTML = filtered.map((m,i)=>{
-    const cel = state.celulas.find(c=>c.id===m.celula);
-    return `<div class="member-row">
-      <div class="avatar" style="background:${avatarColors[i%6]}20;color:${avatarColors[i%6]};border:1px solid ${avatarColors[i%6]}40">${getInitials(m.nombre)}</div>
-      <div class="member-info">
-        <div class="member-name">${m.nombre}</div>
-        <div class="member-meta">${m.barrio} ${cel?'— '+cel.nombre:''} · ${m.cel}</div>
+  const s=(document.getElementById('srch')?.value||'').toLowerCase();
+  const cf=document.getElementById('flt-cel')?.value||'';
+  const rf=document.getElementById('flt-rol')?.value||'';
+  const f=S.miembros.filter(m=>
+    (m.nombre.toLowerCase().includes(s)||m.barrio.toLowerCase().includes(s))&&
+    (!cf||String(m.celula)===cf)&&
+    (!rf||m.rol===rf)
+  );
+  const el=document.getElementById('miem-list');if(!el)return;
+  if(!f.length){el.innerHTML='<div style="color:var(--muted);font-size:13px;padding:8px 0">No se encontraron miembros.</div>';return;}
+  el.innerHTML=f.map((m,i)=>{
+    const cel=S.celulas.find(c=>c.id===m.celula);
+    const rk=m.rol.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+    return`<div class="mr">
+      <div class="av" style="background:${AC[i%6]}20;color:${AC[i%6]};border:1px solid ${AC[i%6]}40">${GI(m.nombre)}</div>
+      <div style="flex:1;min-width:0">
+        <div class="mname">${m.nombre} <span class="rp r${rk}" style="margin-left:4px">${m.rol}</span></div>
+        <div class="mmeta">
+          <span>${m.barrio}${cel?' — '+cel.nombre:''}</span>
+          ${waLink(m.cel,m.cel)}
+        </div>
       </div>
-      <span class="role-pill role-${m.rol.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'')}">${m.rol}</span>
     </div>`;
   }).join('');
 }
 
 function addMiembro(){
-  const nombre = document.getElementById('nm-nombre').value.trim();
-  const barrio = document.getElementById('nm-barrio').value.trim();
-  const cel    = document.getElementById('nm-cel').value.trim();
-  const celula = parseInt(document.getElementById('nm-celula').value)||0;
-  const rol    = document.getElementById('nm-rol').value;
-  if(!nombre||!barrio){ toast('Completa nombre y barrio'); return; }
-  state.miembros.push({id:Date.now(),nombre,barrio,cel,celula,rol});
-  if(celula){ const c=state.celulas.find(x=>x.id===celula); if(c) c.miembros++; }
-  closeModal('modal-miembro');
-  toast('¡Miembro registrado!');
-  renderMiembros();
-  document.getElementById('kpi-miembros').textContent = state.miembros.length;
+  const n=document.getElementById('nm-nom').value.trim();
+  const b=document.getElementById('nm-bar').value.trim();
+  const c=document.getElementById('nm-cel').value.trim();
+  const cel=parseInt(document.getElementById('nm-cel2').value)||0;
+  const r=document.getElementById('nm-rol').value;
+  if(!n||!b){toast('Completa nombre y barrio','terr');return;}
+  S.miembros.push({id:Date.now(),nombre:n,barrio:b,cel:c,celula:cel,rol:r});
+  S.actividad.unshift({t:`Nuevo miembro: ${n} — ${b}`,h:'Ahora',c:'#A5B4FC'});
+  saveS();closeMo('mo-miem');toast('¡Miembro registrado!','tok2');
+  renderMiembros();renderDB();
+  ['nm-nom','nm-bar','nm-cel'].forEach(id=>document.getElementById(id).value='');
 }
 
-// ═══════════════════════════ TAREAS ═══════════════════════════
+// ════════════════════════════════════
+// TAREAS
+// ════════════════════════════════════
 function renderTareas(){
-  const tabsEl = document.getElementById('tareas-tabs');
-  const contentEl = document.getElementById('tareas-content');
-  populateSelects();
-  const tabs = [{id:0,name:'Todas'},...state.celulas.map(c=>({id:c.id,name:c.nombre.replace('Barrio ','')}))];
-  let activeTab = parseInt(tabsEl.dataset.active||'0');
-
-  tabsEl.innerHTML = tabs.map(t=>`
-    <button class="tab-btn ${t.id===activeTab?'active':''}" onclick="setTareaTab(${t.id})">${t.name}</button>
-  `).join('');
-
-  const filtered = activeTab===0 ? state.tareas : state.tareas.filter(t=>t.celula===0||t.celula===activeTab);
-  const done = filtered.filter(t=>t.done).length;
-  const pct = filtered.length ? Math.round(done/filtered.length*100) : 0;
-
-  contentEl.innerHTML = `
-    <div class="card" style="margin-bottom:14px">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-        <div style="font-size:13px;color:var(--muted)">${done} de ${filtered.length} tareas completadas</div>
-        <div style="font-size:13px;font-weight:600;color:var(--white)">${pct}%</div>
+  const te=document.getElementById('tar-tabs');
+  const ce=document.getElementById('tar-content');
+  if(!te||!ce)return;
+  const at=parseInt(te.dataset.active||'0');
+  const tabs=[{id:0,name:'Todas'},...S.celulas.map(c=>({id:c.id,name:c.nombre.replace('Barrio ','')}))];
+  te.innerHTML=tabs.map(t=>`<button class="tb ${t.id===at?'active':''}" onclick="setTT(${t.id})">${t.name}</button>`).join('');
+  const f=at===0?S.tareas:S.tareas.filter(t=>t.celula===0||t.celula===at);
+  const d=f.filter(t=>t.done).length;
+  const pct=f.length?Math.round(d/f.length*100):0;
+  ce.innerHTML=`
+    <div class="card" style="margin-bottom:12px">
+      <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+        <span style="font-size:13px;color:var(--muted)">${d} de ${f.length} completadas</span>
+        <span style="font-size:13px;font-weight:600;color:var(--white)">${pct}%</span>
       </div>
-      <div class="progress-bar"><div class="progress-fill" style="width:${pct}%;background:var(--p2)"></div></div>
+      <div class="pbar"><div class="pf" style="width:${pct}%;background:var(--p2)"></div></div>
     </div>
-    <div class="card">
-      ${filtered.map(t=>`
-        <div style="display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)">
-          <div onclick="toggleTarea(${t.id})" style="width:18px;height:18px;border-radius:5px;border:1px solid ${t.done?'var(--p2)':'var(--line)'};background:${t.done?'var(--p2)':'transparent'};cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;margin-top:1px">
-            ${t.done?'<svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 5L4 7.5L8.5 2.5" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>':''}
-          </div>
-          <div style="flex:1">
-            <div style="font-size:13px;color:${t.done?'var(--muted)':'var(--white)'};text-decoration:${t.done?'line-through':'none'}">${t.desc}</div>
-            <div style="font-size:11px;color:var(--muted);margin-top:2px">${t.celula===0?'Todas las células':(state.celulas.find(c=>c.id===t.celula)?.nombre||'')}</div>
-          </div>
-          <span style="font-size:10px;font-weight:600;padding:2px 8px;border-radius:10px;${t.prio==='Alta'?'background:rgba(248,113,113,.15);color:#F87171':t.prio==='Media'?'background:rgba(251,191,36,.15);color:#FBB024':'background:var(--dark3);color:var(--muted)'}">${t.prio}</span>
-        </div>`).join('')}
-    </div>`;
+    <div class="card">${f.map(t=>`
+      <div style="display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)">
+        <div onclick="togT(${t.id})" style="width:18px;height:18px;border-radius:5px;border:1px solid ${t.done?'var(--p2)':'var(--line)'};background:${t.done?'var(--p2)':'transparent'};cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:1px">
+          ${t.done?'<svg width="10" height="10" viewBox="0 0 10 10"><path d="M1.5 5L4 7.5L8.5 2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg>':''}
+        </div>
+        <div style="flex:1">
+          <div style="font-size:13px;color:${t.done?'var(--muted)':'var(--white)'};text-decoration:${t.done?'line-through':'none'}">${t.desc}</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:2px">${t.celula===0?'Todas las células':(S.celulas.find(c=>c.id===t.celula)?.nombre||'')}</div>
+        </div>
+        <span style="font-size:10px;font-weight:600;padding:2px 8px;border-radius:10px;flex-shrink:0;${t.prio==='Alta'?'background:rgba(248,113,113,.15);color:#F87171':t.prio==='Media'?'background:rgba(251,191,36,.15);color:#FBB024':'background:var(--dark3);color:var(--muted)'}">${t.prio}</span>
+      </div>`).join('')}</div>`;
 }
 
-function setTareaTab(id){
-  document.getElementById('tareas-tabs').dataset.active = id;
+function setTT(id){
+  document.getElementById('tar-tabs').dataset.active=id;
   renderTareas();
 }
 
-function toggleTarea(id){
-  const t = state.tareas.find(x=>x.id===id);
-  if(t){ t.done=!t.done; renderTareas(); toast(t.done?'Tarea completada ✓':'Tarea reabierta'); }
+function togT(id){
+  const t=S.tareas.find(x=>x.id===id);
+  if(t){
+    t.done=!t.done;
+    if(t.done)S.actividad.unshift({t:`Tarea completada: "${t.desc.slice(0,36)}"`,h:'Ahora',c:'#4ADE80'});
+    saveS();renderTareas();renderDB();
+    toast(t.done?'Tarea completada ✓':'Tarea reabierta','tok2');
+  }
 }
 
 function addTarea(){
-  const desc  = document.getElementById('nt-desc').value.trim();
-  const celula= parseInt(document.getElementById('nt-celula').value)||0;
-  const prio  = document.getElementById('nt-prio').value;
-  if(!desc){ toast('Escribe la descripción de la tarea'); return; }
-  state.tareas.push({id:Date.now(),desc,celula,prio,done:false});
-  closeModal('modal-tarea');
-  toast('Tarea agregada');
-  renderTareas();
+  const d=document.getElementById('nt-desc').value.trim();
+  const c=parseInt(document.getElementById('nt-cel').value)||0;
+  const p=document.getElementById('nt-prio').value;
+  if(!d){toast('Escribe la descripción de la tarea','terr');return;}
+  S.tareas.push({id:Date.now(),desc:d,celula:c,prio:p,done:false});
+  saveS();closeMo('mo-tar');toast('Tarea agregada','tok2');renderTareas();
+  document.getElementById('nt-desc').value='';
 }
 
-// ═══════════════════════════ REPORTES ═══════════════════════════
+// ════════════════════════════════════
+// REPORTES
+// ════════════════════════════════════
 function renderReportes(){
-  const el = document.getElementById('reportes-content');
-  if(!el) return;
-  el.innerHTML = `
-    <div class="card" style="margin-bottom:16px">
-      <div class="card-title">Reporte semanal — semana del ${new Date().toLocaleDateString('es-CO',{day:'numeric',month:'long',year:'numeric'})}</div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px">
-        <div style="background:var(--dark3);border-radius:10px;padding:12px;text-align:center">
-          <div style="font-family:var(--fs);font-size:20px;font-weight:800;color:var(--white)">${state.celulas.length}</div>
-          <div style="font-size:11px;color:var(--muted);margin-top:3px">Células activas</div>
-        </div>
-        <div style="background:var(--dark3);border-radius:10px;padding:12px;text-align:center">
-          <div style="font-family:var(--fs);font-size:20px;font-weight:800;color:var(--white)">${state.miembros.length}</div>
-          <div style="font-size:11px;color:var(--muted);margin-top:3px">Miembros totales</div>
-        </div>
-        <div style="background:var(--dark3);border-radius:10px;padding:12px;text-align:center">
-          <div style="font-family:var(--fs);font-size:20px;font-weight:800;color:var(--white)">${Math.round(state.tareas.filter(t=>t.done).length/state.tareas.length*100)}%</div>
-          <div style="font-size:11px;color:var(--muted);margin-top:3px">Tareas completadas</div>
-        </div>
+  const el=document.getElementById('rep-content');if(!el)return;
+  const tm=S.miembros.length;
+  const th=S.celulas.reduce((a,c)=>a+c.hogares,0);
+  const pt=S.tareas.length?Math.round(S.tareas.filter(t=>t.done).length/S.tareas.length*100):0;
+  const fd=new Date().toLocaleDateString('es-CO',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  el.innerHTML=`
+    <div class="card"><div class="ct">Informe semanal — ${fd}</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px">
+        ${[[S.celulas.length,'Células activas'],[tm,'Miembros totales'],[th,'Hogares contactados'],
+           [pt+'%','Tareas completadas'],
+           [S.celulas.filter(c=>c.estado==='activa').length,'Células en meta'],
+           [S.celulas.filter(c=>c.estado==='riesgo').length,'Células en riesgo']
+          ].map(([n,l])=>`
+          <div style="background:var(--dark3);border-radius:10px;padding:12px;text-align:center">
+            <div style="font-family:var(--fs);font-size:20px;font-weight:800;color:var(--white)">${n}</div>
+            <div style="font-size:11px;color:var(--muted);margin-top:3px">${l}</div>
+          </div>`).join('')}
       </div>
-      ${state.celulas.map(c=>`
-        <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)">
-          <div style="flex:1">
-            <div style="font-size:13px;font-weight:500;color:var(--white)">${c.nombre}</div>
-            <div style="font-size:11px;color:var(--muted)">Líder: ${c.lider} · ${c.cel}</div>
-          </div>
-          <div style="text-align:center;min-width:50px">
-            <div style="font-family:var(--fs);font-size:16px;font-weight:700;color:var(--white)">${c.miembros}</div>
-            <div style="font-size:10px;color:var(--muted)">miembros</div>
-          </div>
-          <div style="text-align:center;min-width:50px">
-            <div style="font-family:var(--fs);font-size:16px;font-weight:700;color:var(--white)">${c.hogares}</div>
-            <div style="font-size:10px;color:var(--muted)">hogares</div>
-          </div>
-          <span class="cel-badge ${c.estado==='activa'?'badge-activa':c.estado==='riesgo'?'badge-riesgo':'badge-nueva'}">${c.estado}</span>
-        </div>`).join('')}
-    </div>
-    <button class="btn btn-teal btn-sm" onclick="toast('Reporte copiado al portapapeles')">Copiar reporte para WhatsApp</button>`;
+      <div style="overflow-x:auto">
+        <table class="tbl">
+          <thead><tr><th>Célula</th><th>Líder</th><th style="text-align:center">Miembros</th><th style="text-align:center">Hogares</th><th style="text-align:center">Estado</th><th>WhatsApp</th></tr></thead>
+          <tbody>${S.celulas.map(c=>{
+            const mc=S.miembros.filter(m=>m.celula===c.id).length;
+            return`<tr>
+              <td style="font-weight:500;color:var(--white)">${c.nombre}</td>
+              <td style="color:rgba(255,255,255,.8)">${c.lider}</td>
+              <td style="text-align:center;color:var(--white)">${mc}</td>
+              <td style="text-align:center;color:var(--white)">${c.hogares}</td>
+              <td style="text-align:center"><span class="cbdg ${c.estado==='activa'?'ba':c.estado==='riesgo'?'br':'bn'}">${c.estado}</span></td>
+              <td>${waLink(c.cel,c.cel)}</td>
+            </tr>`;}).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>`;
 }
 
-// ═══════════════════════════ MENSAJES ═══════════════════════════
+function copyReporte(){
+  const fd=new Date().toLocaleDateString('es-CO');
+  const tm=S.miembros.length;
+  const th=S.celulas.reduce((a,c)=>a+c.hogares,0);
+  const pt=S.tareas.length?Math.round(S.tareas.filter(t=>t.done).length/S.tareas.length*100):0;
+  let txt=`📊 *REPORTE SEMANAL — Células Ciudadanas*\n📅 ${fd}\n\n`;
+  txt+=`🏘️ Células: ${S.celulas.length} | 👥 Miembros: ${tm} | 🚪 Hogares: ${th} | ✅ Tareas: ${pt}%\n\n*Detalle por célula:*\n`;
+  S.celulas.forEach(c=>{
+    const mc=S.miembros.filter(m=>m.celula===c.id).length;
+    txt+=`• ${c.nombre}: ${mc} miembros, ${c.hogares} hogares (${c.estado})\n`;
+  });
+  txt+=`\n_App desarrollada por Vibras Positivas HM_`;
+  navigator.clipboard.writeText(txt)
+    .then(()=>toast('Reporte copiado para WhatsApp ✓','tok3'))
+    .catch(()=>toast('Copiado','tok3'));
+}
+
+// ════════════════════════════════════
+// MENSAJES
+// ════════════════════════════════════
 function renderMensajes(){
-  const el = document.getElementById('mensajes-content');
-  if(!el) return;
-  const grupos = [
-    {titulo:'Mensajes de lunes — arranque de semana',msgs:[
+  const el=document.getElementById('msg-content');if(!el)return;
+  const myWa=fmtWA((S.cfg&&S.cfg.wa)||'573117700431');
+  const gs=[
+    {t:'Lunes — Arranque de semana',ms:[
       'Buenos días equipo. Esta semana nuestra misión es hablar con 3 vecinos cada uno. ¡Podemos! 💪',
-      'Hola a todos. Arrancamos nueva semana. Recuerden: 30 minutos de su tiempo pueden cambiar el futuro de nuestro barrio. Vamos juntos.',
+      'Arrancamos nueva semana. Recuerden: 30 minutos de su tiempo pueden cambiar el futuro de nuestro barrio. ¡Vamos juntos!',
     ]},
-    {titulo:'Mensajes de miércoles — seguimiento',msgs:[
-      '¿Cómo van? Compartan en el grupo cuántos vecinos han contactado esta semana. Cada conversación cuenta.',
-      'Recordatorio: nuestra reunión de célula es el [día] a las [hora] en [lugar]. Los esperamos a todos.',
+    {t:'Miércoles — Seguimiento',ms:[
+      '¿Cómo van? Compartan cuántos vecinos han contactado. Cada conversación cuenta.',
+      'Recordatorio: nuestra reunión es el [día] a las [hora] en [lugar]. Los esperamos a todos.',
     ]},
-    {titulo:'Mensajes de viernes — cierre de semana',msgs:[
-      'Resumen de la semana: [X] nuevos miembros, [X] hogares visitados. Ustedes son la razón por la que esto funciona. 🙌',
+    {t:'Viernes — Cierre de semana',ms:[
+      'Resumen: [X] nuevos miembros, [X] hogares visitados esta semana. ¡Ustedes son increíbles! 🙌',
       'Fin de semana ideal para hablar con vecinos. Un café y una conversación pueden cambiar un voto.',
     ]},
-    {titulo:'Mensajes de motivación',msgs:[
+    {t:'Mensajes de motivación',ms:[
       'No somos políticos. Somos vecinos organizados que decidimos actuar. Eso somos. Eso vale.',
-      'Cada puerta que tocan, cada vecino que escuchan, es un paso más hacia el cambio que queremos. Gracias por su tiempo y su compromiso.',
+      'Cada puerta que tocan, cada vecino que escuchan, es un paso más hacia el cambio que queremos.',
     ]},
-    {titulo:'Mensajes para el día de elecciones',msgs:[
+    {t:'Día de elecciones',ms:[
       '🗳️ ¡Hoy es el día! Las urnas abren a las 6am. Vamos juntos, vamos temprano, vamos con la frente en alto.',
-      'Ya votamos [N] personas de nuestra célula. Faltan [N]. ¿Quién necesita que lo acompañemos?',
-      'Lo logramos. Independientemente del resultado, hoy demostramos que los ciudadanos organizados cambian las cosas. Gracias a cada uno.',
+      'Ya votamos [N] de nuestra célula. Faltan [N]. ¿Quién necesita que lo acompañemos?',
+      'Lo logramos. Los ciudadanos organizados cambian las cosas. Gracias a cada uno. 🙌',
     ]},
   ];
-  el.innerHTML = grupos.map(g=>`
-    <div class="card">
-      <div class="card-title">${g.titulo}</div>
-      ${g.msgs.map((m,i)=>`
+
+  const msgs_html=gs.map(g=>`
+    <div class="card"><div class="ct">${g.t}</div>
+      ${g.ms.map(m=>`
         <div class="wamsg">${m}</div>
-        <button class="copy-btn" onclick="copyMsg('${m.replace(/'/g,"\\'")}')">Copiar mensaje</button>
+        <button class="cpb" onclick="cpMsg(this,'${m.replace(/\\/g,'\\\\').replace(/'/g,"\\'")}')">📋 Copiar mensaje</button>
       `).join('')}
     </div>`).join('');
+
+  const coord_html=`
+    <div class="card"><div class="ct">Contacto directo con el coordinador</div>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:14px">Comparte este enlace con las células para contactarte directamente por WhatsApp.</p>
+      <a href="https://wa.me/${myWa}?text=${encodeURIComponent('Hola, me contacto desde la app Células Ciudadanas.')}" target="_blank" class="btn bwa sm">
+        ${WA_ICON} Escribir al coordinador (+57 ${myWa.slice(-10)})
+      </a>
+    </div>`;
+
+  el.innerHTML=msgs_html+coord_html;
 }
 
-function copyMsg(txt){
-  navigator.clipboard.writeText(txt).then(()=>toast('Mensaje copiado ✓')).catch(()=>toast('Copiado al portapapeles'));
+function cpMsg(btn,txt){
+  navigator.clipboard.writeText(txt)
+    .then(()=>{btn.textContent='¡Copiado!';setTimeout(()=>btn.textContent='📋 Copiar mensaje',2000);toast('Mensaje copiado ✓','tok3');})
+    .catch(()=>toast('Copiado','tok3'));
 }
 
-// ═══════════════════════════ INIT ═══════════════════════════
-renderDashboard();
-populateSelects();
-// Mostrar solo el dashboard activo al inicio
-document.querySelectorAll('.content').forEach(c=>{ if(!c.classList.contains('active')) c.style.display='none'; });
+// ════════════════════════════════════
+// AUTO-SAVE CADA 30s
+// ════════════════════════════════════
+setInterval(()=>saveS(false),30000);
+
+// ════════════════════════════════════
+// INIT
+// ════════════════════════════════════
+if(!S.cfg)S.cfg={eleccion:'',wa:'573117700431'};
+saveS(true);
+renderDB();
+popSel();
+// Ocultar todas las páginas excepto dashboard
+document.querySelectorAll('.pg').forEach(p=>{
+  if(!p.classList.contains('active'))p.style.display='none';
+});
 </script>
 </body>
 </html>
